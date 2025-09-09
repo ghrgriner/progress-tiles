@@ -38,6 +38,8 @@ a text file named 'tiling.txt'. The file should have the variables:
   (optional) - define the the default fill and stroke (tile border)
   colors in rgb or rgba hex notation (e.g., '#ff00bc' or 'de303080')
   for both the 'start' and 'done' states.
+- footnote (optional) - if the column exists, then the value from the
+  first row (if it exists) will be used as a footnote to the image.
 
 The following environment variables are used by the program:
 
