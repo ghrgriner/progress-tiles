@@ -47,7 +47,7 @@ from gi.repository import Gtk, Adw, Gdk, GLib
 # Do the tiles on the area border first?
 BORDER_FIRST = True
 # TODO: make command line argument?
-TILE_FILE_NAME = 'honeycomb_tiling.txt'
+TILE_FILE_NAME = 'hat_tiling.txt'
 
 #-----------------------------------------------------------------------------
 # Global
