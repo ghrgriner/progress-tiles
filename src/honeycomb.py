@@ -52,7 +52,7 @@ def convert_rgba_to_hex(r, g, b, a=None):
     else:
         return f'#{r:02X}{g:02X}{b:02X}{a:02X}'
 
-def pt_headers(max_pts, sep=','):
+def pt_headers(max_pts, sep='\t'):
     ret_list = []
     for i in range(max_pts):
         ret_list.append(f'px_{i}')
@@ -120,21 +120,22 @@ class AllTiles:
     def write_points_to_file(self, file_name):
         with open(file_name, 'w', encoding='utf-8') as f:
             max_pts = max([len(tile.user_points) for tile in self.tiles])
-            headers = ('seq_id,start_fill_color,start_stroke_color,'
-                       'done_fill_color,done_stroke_color,'
+            headers = ('seq_id\tstart_fill_color\tstart_stroke_color\t'
+                       'done_fill_color\tdone_stroke_color\t'
                        f'{pt_headers(max_pts)}')
             f.write(headers)
             f.write('\n')
             for idx, tile in enumerate(self.tiles):
-                f.write(str(idx) + ',')
-                f.write(tile.start_fill_color + ',')
-                f.write(tile.start_stroke_color + ',')
-                f.write(tile.done_fill_color + ',')
+                sep = '\t'
+                f.write(str(idx) + sep)
+                f.write(tile.start_fill_color + sep)
+                f.write(tile.start_stroke_color + sep)
+                f.write(tile.done_fill_color + sep)
                 f.write(tile.done_stroke_color)
                 for pt in tile.user_points:
-                    f.write(f',{pt[0]:.6f},{pt[1]:.6f}')
+                    f.write(f'{sep}{pt[0]:.6f}{sep}{pt[1]:.6f}')
                 for _ in range(max_pts - len(tile.user_points)):
-                    f.write(',,')
+                    f.write('{sep}{sep}')
                 f.write('\n')
 
 # Main Entry Point

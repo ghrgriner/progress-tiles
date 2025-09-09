@@ -1,224 +1,224 @@
-hat_id	color	chirality	start_edge	match_id	match_edge	match_rev
-1	lb	L	LP			
-2	g	L	RN	1	LH	
-3	w	L	RN	2	LH	
-4	w	L	RS	1	RS	
-5	lb	L	RH	4	RN	
-6	db	R	LW	5	RN	N
-7	g	L	RH	2	LP	
-8	lb	L	LS	7	LN	
-9	db	R	LN	8	RW	N
-10	lb	L	LT	4	LW	
-11	lb	L	LN	10	LW	
-12	g	L	RH	11	LP	
-13	w	L	LT	12	LS	
-14	w	L	LP	13	RH	
-15	lb	L	LP	14	RH	
-16	g	L	LW	15	LN	
-17	g	L	LT	16	RP	
-18	lb	L	LH	17	RN	
-19	w	L	LW	18	LN	
-20	w	L	LP	19	RH	
-21	lb	L	LH	20	RN	
-22	lb	L	LT	20	RP	
-23	g	L	RN	22	LH	
-24	lb	L	LH	21	RN	
-25	db	R	RT	24	RT	N
-26	lb	L	RH	19	RN	
-27	g	L	RW	26	LH	
-28	g	L	LP	27	LH	
-29	lb	L	LW	27	LN	
-30	db	R	LT	29	LN	N
-31	g	L	LW	28	RT	
-32	lb	L	LS	31	LN	
-33	lb	L	LW	31	RT	
-34	g	L	RS	31	RS	
-35	w	L	LW	33	LN	
-36	lb	L	RH	35	RN	
-38	lb	L	RS	35	RS	
-39	g	L	LN	36	LW	
-40	lb	L	LN	39	LW	
-41	db	R	RN	40	RT	N
-42	g	L	RT	40	LW	
-43	g	L	RT	42	LW	
-44	lb	L	LT	43	LW	
-45	g	L	LN	44	LW	
-46	g	L	LS	45	LT	
-47	lb	L	LH	46	RN	
-48	lb	L	LN	46	LW	
-49	g	L	LW	46	RT	
-50	g	L	RS	49	RS	
-51	lb	L	LP	50	RH	
-52	w	L	LH	51	RN	
-53	w	L	RH	52	LP	
-54	db	R	LH	52	DW	N
-55	lb	L	LH	53	RW	
-56	lb	L	LN	55	LW	
-57	db	R	RS	56	RP	N
-59	w	L	RW	56	RH	
-58	lb	L	LW	59	RT	
-60	lb	L	RS	59	RS	
-61	w	L	LH	58	RN	
-62	lb	L	LW	61	RT	
-63	w	L	RH	61	LP	
-64	db	R	RN	62	RT	N
-65	g	L	RN	62	LH	
-66	g	L	RH	65	LP	
-67	g	L	LP	66	LH	
-68	lb	L	LW	67	LN	
-69	db	R	LT	68	LN	N
-70	w	L	LH	22	RN	
-71	w	L	RH	70	LP	
-72	g	L	LS	71	LT	
-73	db	R	LH	72	DW	N
-74	lb	L	LS	73	LP	N
-75	w	L	LS	74	RT	
-76	w	L	LT	75	RP	
-77	lb	L	LW	76	RT	
-78	g	L	RS	76	RS	
-79	lb	L	LP	78	RH	
-80	db	R	RT	79	RT	N
-81	lb	L	RS	75	RS	
-82	w	L	RH	81	LP	
-83	lb	L	RH	82	RN	
-84	w	L	LW	83	LT	
-85	lb	L	LS	84	LT	
-86	db	R	RT	85	RT	N
-87	lb	L	RT	82	LW	
-88	lb	L	LN	87	LW	
-89	w	L	LW	87	LT	
-90	lb	L	RH	89	RN	
-91	db	R	LT	90	LN	N
-92	lb	L	LW	70	RT	
-93	g	L	LN	92	LS	
-94	lb	L	LN	93	LW	
-95	db	R	RN	94	RT	N
-96	w	L	RT	94	LW	
-97	g	L	RS	96	RS	
-98	g	L	LS	97	LT	
-99	g	L	LT	98	RP	
-100	lb	L	LW	99	RT	
-101	w	L	LS	100	LN	
-102	lb	L	LT	101	RP	
-103	g	L	RT	85	LW	
-104	lb	L	LW	103	LN	
-105	db	R	LT	104	LN	N
-107	w	L	LT	103	LS	
-106	w	L	LT	107	RP	
-108	lb	L	RT	107	LS	
-109	g	L	LN	108	LW	
-110	db	R	LT	108	LN	N
-111	lb	L	RP	110	RW	N
-112	g	L	LT	109	LS	
-113	g	L	LT	112	LS	
-114	g	L	LT	113	RP	
-115	lb	L	LN	113	LW	
-116	g	L	RS	112	RS	
-117	g	L	LT	112	RP	
-118	db	R	RS	115	RP	N
-119	lb	L	LW	114	RT	
-120	lb	L	LS	118	LP	N
-121	g	L	LW	120	LT	
-122	g	L	LN	120	LW	
-123	g	L	LW	122	RT	
-124	w	L	LT	123	LS	
-125	w	L	LT	124	RP	
-126	lb	L	LT	125	RP	
-127	lb	L	LT	124	LW	
-128	db	R	LT	127	LN	N
-129	lb	L	RP	128	RW	N
-130	g	L	RT	129	LW	
-131	lb	L	LS	130	LN	
-132	w	L	RS	131	RS	
-133	lb	L	LT	132	LW	
-134	w	L	LN	133	RP	
-135	lb	L	RH	134	RW	
-136	g	L	RT	135	LW	
-137	w	L	LP	136	LH	
-138	lb	L	RS	137	RS	
-139	w	L	RT	138	LW	
-140	w	L	RH	38	LP	
-141	lb	L	LS	139	LN	
-142	g	L	RS	139	RS	
-143	w	L	LN	142	LS	
-144	db	R	LH	143	DW	N
-145	lb	L	LT	137	LW	
-146	w	L	LS	145	RT	
-147	lb	L	LT	146	LW	
-148	db	R	LT	147	LN	N
-149	lb	L	LN	133	LW	
-150	g	L	RT	149	LW	
-151	lb	L	LW	150	LN	
-152	db	R	LT	151	LN	N
-153	lb	L	RT	152	RN	N
-154	g	L	RT	131	LW	
-155	w	L	LN	154	LS	
-156	w	L	RP	155	LT	
-157	lb	L	LS	156	LT	
-158	lb	L	LT	156	LW	
-159	db	R	LP	158	LS	N
-160	lb	L	RT	159	RT	N
-161	g	L	RT	160	LW	
-162	lb	L	LS	161	LN	
-163	w	L	RS	162	RS	
-164	w	L	LN	161	LS	
-165	g	L	RS	164	RS	
-166	lb	L	LN	165	LW	
-167	g	L	RN	166	LH	
-168	g	L	LS	167	LT	
-169	lb	L	LN	168	LW	
-170	db	R	RN	169	RT	N
-171	lb	L	LT	163	LW	
-172	lb	L	RT	170	RT	N
-173	g	L	RT	172	LW	
-174	w	L	LN	173	LS	
-175	w	L	RT	174	LW	
-176	g	L	RT	150	LW	
-177	lb	L	LN	176	LW	
-178	w	L	RT	177	LW	
-179	lb	L	LN	178	LS	
-180	lb	L	LW	143	RT	
-181	g	L	LN	180	LS	
-182	lb	L	LN	181	LW	
-183	db	R	RN	182	RT	N
-184	w	L	RT	182	LW	
-185	g	L	LS	181	LT	
-186	g	L	LS	185	LT	
-187	g	L	LW	186	RT	
-188	g	L	RS	187	RS	
-189	g	L	RP	188	LT	
-190	g	L	LT	176	LS	
-191	lb	L	LT	190	LW	
-192	lb	L	RS	175	RS	
-193	db	R	RT	192	RT	N
-194	g	L	LW	190	RT	
-195	lb	L	LW	194	RT	
-196	w	L	RT	192	LW	
-197	w	L	LW	195	LN	
-198	lb	L	RP	163	LN	
-199	w	L	LN	194	LS	
-200	lb	L	LS	190	LN	
-201	db	R	RN	200	RT	N
-202	lb	L	LW	188	RT	
-203	lb	L	LN	201	LT	N
-204	w	L	LN	203	RP	
-205	w	L	LT	204	RP	
-206	lb	L	LT	205	RP	
-207	db	R	RN	206	RT	N
-208	lb	L	LT	204	LW	
-209	lb	L	RT	207	RT	N
-210	g	L	RT	209	LW	
-211	w	L	RS	210	RS	
-212	lb	L	LS	210	LN	
-213	w	L	RP	184	LT	
-214	lb	L	LT	213	LW	
-215	db	R	RT	51	RT	N
-216	lb	L	RT	53	LS	
-217	g	L	RT	56	LW	
-218	w	L	LT	84	RP	
-219	lb	L	RT	105	RT	N
-220	lb	L	LW	106	RT	
-221	lb	L	RT	80	RN	N
-222	lb	L	LN	57	LT	N
-223	lb	L	RT	215	RN	N
-224	lb	L	LT	63	LW	
+hat_id	color	chirality	start_edge	match_id	match_edge	match_rev	footnote
+1	lb	L	LP				Starting tile pattern based on the hat tiling in a <a href="https://cs.uwaterloo.ca/~csk/hat/examples/animation.gif">looping animated GIF</a> by David Smith, Joseph Samuel Myers, Craig S. Kaplan, and Chaim Goodman-Strauss, used under <a href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> / This is a recreation of the original rather than a screenshot, and the cropping, colors, and vertical orientation differ slightly from the original.
+2	g	L	RN	1	LH		
+3	w	L	RN	2	LH		
+4	w	L	RS	1	RS		
+5	lb	L	RH	4	RN		
+6	db	R	LW	5	RN	N	
+7	g	L	RH	2	LP		
+8	lb	L	LS	7	LN		
+9	db	R	LN	8	RW	N	
+10	lb	L	LT	4	LW		
+11	lb	L	LN	10	LW		
+12	g	L	RH	11	LP		
+13	w	L	LT	12	LS		
+14	w	L	LP	13	RH		
+15	lb	L	LP	14	RH		
+16	g	L	LW	15	LN		
+17	g	L	LT	16	RP		
+18	lb	L	LH	17	RN		
+19	w	L	LW	18	LN		
+20	w	L	LP	19	RH		
+21	lb	L	LH	20	RN		
+22	lb	L	LT	20	RP		
+23	g	L	RN	22	LH		
+24	lb	L	LH	21	RN		
+25	db	R	RT	24	RT	N	
+26	lb	L	RH	19	RN		
+27	g	L	RW	26	LH		
+28	g	L	LP	27	LH		
+29	lb	L	LW	27	LN		
+30	db	R	LT	29	LN	N	
+31	g	L	LW	28	RT		
+32	lb	L	LS	31	LN		
+33	lb	L	LW	31	RT		
+34	g	L	RS	31	RS		
+35	w	L	LW	33	LN		
+36	lb	L	RH	35	RN		
+38	lb	L	RS	35	RS		
+39	g	L	LN	36	LW		
+40	lb	L	LN	39	LW		
+41	db	R	RN	40	RT	N	
+42	g	L	RT	40	LW		
+43	g	L	RT	42	LW		
+44	lb	L	LT	43	LW		
+45	g	L	LN	44	LW		
+46	g	L	LS	45	LT		
+47	lb	L	LH	46	RN		
+48	lb	L	LN	46	LW		
+49	g	L	LW	46	RT		
+50	g	L	RS	49	RS		
+51	lb	L	LP	50	RH		
+52	w	L	LH	51	RN		
+53	w	L	RH	52	LP		
+54	db	R	LH	52	DW	N	
+55	lb	L	LH	53	RW		
+56	lb	L	LN	55	LW		
+57	db	R	RS	56	RP	N	
+59	w	L	RW	56	RH		
+58	lb	L	LW	59	RT		
+60	lb	L	RS	59	RS		
+61	w	L	LH	58	RN		
+62	lb	L	LW	61	RT		
+63	w	L	RH	61	LP		
+64	db	R	RN	62	RT	N	
+65	g	L	RN	62	LH		
+66	g	L	RH	65	LP		
+67	g	L	LP	66	LH		
+68	lb	L	LW	67	LN		
+69	db	R	LT	68	LN	N	
+70	w	L	LH	22	RN		
+71	w	L	RH	70	LP		
+72	g	L	LS	71	LT		
+73	db	R	LH	72	DW	N	
+74	lb	L	LS	73	LP	N	
+75	w	L	LS	74	RT		
+76	w	L	LT	75	RP		
+77	lb	L	LW	76	RT		
+78	g	L	RS	76	RS		
+79	lb	L	LP	78	RH		
+80	db	R	RT	79	RT	N	
+81	lb	L	RS	75	RS		
+82	w	L	RH	81	LP		
+83	lb	L	RH	82	RN		
+84	w	L	LW	83	LT		
+85	lb	L	LS	84	LT		
+86	db	R	RT	85	RT	N	
+87	lb	L	RT	82	LW		
+88	lb	L	LN	87	LW		
+89	w	L	LW	87	LT		
+90	lb	L	RH	89	RN		
+91	db	R	LT	90	LN	N	
+92	lb	L	LW	70	RT		
+93	g	L	LN	92	LS		
+94	lb	L	LN	93	LW		
+95	db	R	RN	94	RT	N	
+96	w	L	RT	94	LW		
+97	g	L	RS	96	RS		
+98	g	L	LS	97	LT		
+99	g	L	LT	98	RP		
+100	lb	L	LW	99	RT		
+101	w	L	LS	100	LN		
+102	lb	L	LT	101	RP		
+103	g	L	RT	85	LW		
+104	lb	L	LW	103	LN		
+105	db	R	LT	104	LN	N	
+107	w	L	LT	103	LS		
+106	w	L	LT	107	RP		
+108	lb	L	RT	107	LS		
+109	g	L	LN	108	LW		
+110	db	R	LT	108	LN	N	
+111	lb	L	RP	110	RW	N	
+112	g	L	LT	109	LS		
+113	g	L	LT	112	LS		
+114	g	L	LT	113	RP		
+115	lb	L	LN	113	LW		
+116	g	L	RS	112	RS		
+117	g	L	LT	112	RP		
+118	db	R	RS	115	RP	N	
+119	lb	L	LW	114	RT		
+120	lb	L	LS	118	LP	N	
+121	g	L	LW	120	LT		
+122	g	L	LN	120	LW		
+123	g	L	LW	122	RT		
+124	w	L	LT	123	LS		
+125	w	L	LT	124	RP		
+126	lb	L	LT	125	RP		
+127	lb	L	LT	124	LW		
+128	db	R	LT	127	LN	N	
+129	lb	L	RP	128	RW	N	
+130	g	L	RT	129	LW		
+131	lb	L	LS	130	LN		
+132	w	L	RS	131	RS		
+133	lb	L	LT	132	LW		
+134	w	L	LN	133	RP		
+135	lb	L	RH	134	RW		
+136	g	L	RT	135	LW		
+137	w	L	LP	136	LH		
+138	lb	L	RS	137	RS		
+139	w	L	RT	138	LW		
+140	w	L	RH	38	LP		
+141	lb	L	LS	139	LN		
+142	g	L	RS	139	RS		
+143	w	L	LN	142	LS		
+144	db	R	LH	143	DW	N	
+145	lb	L	LT	137	LW		
+146	w	L	LS	145	RT		
+147	lb	L	LT	146	LW		
+148	db	R	LT	147	LN	N	
+149	lb	L	LN	133	LW		
+150	g	L	RT	149	LW		
+151	lb	L	LW	150	LN		
+152	db	R	LT	151	LN	N	
+153	lb	L	RT	152	RN	N	
+154	g	L	RT	131	LW		
+155	w	L	LN	154	LS		
+156	w	L	RP	155	LT		
+157	lb	L	LS	156	LT		
+158	lb	L	LT	156	LW		
+159	db	R	LP	158	LS	N	
+160	lb	L	RT	159	RT	N	
+161	g	L	RT	160	LW		
+162	lb	L	LS	161	LN		
+163	w	L	RS	162	RS		
+164	w	L	LN	161	LS		
+165	g	L	RS	164	RS		
+166	lb	L	LN	165	LW		
+167	g	L	RN	166	LH		
+168	g	L	LS	167	LT		
+169	lb	L	LN	168	LW		
+170	db	R	RN	169	RT	N	
+171	lb	L	LT	163	LW		
+172	lb	L	RT	170	RT	N	
+173	g	L	RT	172	LW		
+174	w	L	LN	173	LS		
+175	w	L	RT	174	LW		
+176	g	L	RT	150	LW		
+177	lb	L	LN	176	LW		
+178	w	L	RT	177	LW		
+179	lb	L	LN	178	LS		
+180	lb	L	LW	143	RT		
+181	g	L	LN	180	LS		
+182	lb	L	LN	181	LW		
+183	db	R	RN	182	RT	N	
+184	w	L	RT	182	LW		
+185	g	L	LS	181	LT		
+186	g	L	LS	185	LT		
+187	g	L	LW	186	RT		
+188	g	L	RS	187	RS		
+189	g	L	RP	188	LT		
+190	g	L	LT	176	LS		
+191	lb	L	LT	190	LW		
+192	lb	L	RS	175	RS		
+193	db	R	RT	192	RT	N	
+194	g	L	LW	190	RT		
+195	lb	L	LW	194	RT		
+196	w	L	RT	192	LW		
+197	w	L	LW	195	LN		
+198	lb	L	RP	163	LN		
+199	w	L	LN	194	LS		
+200	lb	L	LS	190	LN		
+201	db	R	RN	200	RT	N	
+202	lb	L	LW	188	RT		
+203	lb	L	LN	201	LT	N	
+204	w	L	LN	203	RP		
+205	w	L	LT	204	RP		
+206	lb	L	LT	205	RP		
+207	db	R	RN	206	RT	N	
+208	lb	L	LT	204	LW		
+209	lb	L	RT	207	RT	N	
+210	g	L	RT	209	LW		
+211	w	L	RS	210	RS		
+212	lb	L	LS	210	LN		
+213	w	L	RP	184	LT		
+214	lb	L	LT	213	LW		
+215	db	R	RT	51	RT	N	
+216	lb	L	RT	53	LS		
+217	g	L	RT	56	LW		
+218	w	L	LT	84	RP		
+219	lb	L	RT	105	RT	N	
+220	lb	L	LW	106	RT		
+221	lb	L	RT	80	RN	N	
+222	lb	L	LN	57	LT	N	
+223	lb	L	RT	215	RN	N	
+224	lb	L	LT	63	LW		

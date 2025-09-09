@@ -18,7 +18,9 @@ environment variables SHOW_PROGRESS_START_FILL_COLOR, ..._START_STROKE_COLOR,
 ..._STOP_FILL_COLOR, and ..._STOP_STROKE_COLOR will be used, with other
 defaults used if no such variables are specified. Colors should be specified
 as rgb or rgba hex strings, e.g. '#ff0000' (solid red), '#00ff0080'
-(semi-transparent green).
+(semi-transparent green). If a column named 'footnote' exists, then the
+value from the first row read will be put in a window below the drawing
+area.
 
 The denominator can be larger or smaller than the number of tiles.
 
@@ -45,7 +47,7 @@ from gi.repository import Gtk, Adw, Gdk, GLib
 # Do the tiles on the area border first?
 BORDER_FIRST = True
 # TODO: make command line argument?
-TILE_FILE_NAME = 'hat_tiling.txt'
+TILE_FILE_NAME = 'honeycomb_tiling.txt'
 
 #-----------------------------------------------------------------------------
 # Global
@@ -352,19 +354,6 @@ class TileDrawingArea(Gtk.DrawingArea):
         self._set_default_color('done_stroke_color',
               default_value=convert_rgba_to_hex(*self.default_done_fill_color))
 
-    def load_tiles_from_file(self, file_name):
-        self.tiles = []
-        with open(file_name, 'r', encoding='utf-8') as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                pts = get_pts_from_reader_row(row)
-                new_tile = Tile(user_points=pts, dw=self)
-                new_tile.set_color_from_reader_row(row, 'start_fill_color')
-                new_tile.set_color_from_reader_row(row, 'done_fill_color')
-                new_tile.set_color_from_reader_row(row, 'start_stroke_color')
-                new_tile.set_color_from_reader_row(row, 'done_stroke_color')
-                self.tiles.append(new_tile)
-
     def reset_change_order(self):
         tmp_list = list(range(len(self.tiles)))
         random.shuffle(tmp_list)
@@ -498,7 +487,7 @@ class MainWindow(Gtk.ApplicationWindow):
         self.header = Gtk.HeaderBar()
         self.set_titlebar(self.header)
 
-        self.box1 = Gtk.Box()
+        self.box1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         self.set_child(self.box1)
 
         self.dw = TileDrawingArea()
@@ -515,6 +504,46 @@ class MainWindow(Gtk.ApplicationWindow):
         self.add_css_class('transparent-window')
 
         self.load_tiles_from_file(TILE_FILE_NAME)
+
+    def add_footnote(self, text):
+        label = Gtk.Label()
+        label.set_markup(text)
+        label.set_justify(Gtk.Justification.LEFT)
+        label.set_halign(Gtk.Align.FILL)
+        label.set_wrap(True)
+        label.set_max_width_chars(200)
+        self.box1.append(label)
+        label.set_name('footnote-label')
+        #label.set_hexpand(True)
+        #label.set_vexpand(True)
+
+        css_provider = Gtk.CssProvider.new()
+        css_provider.load_from_data(
+            b'#footnote-label { background-color: white; padding: 5px; }')
+        Gtk.StyleContext.add_provider_for_display(
+            Gdk.Display.get_default(), css_provider,
+            Gtk.STYLE_PROVIDER_PRIORITY_USER)
+
+    def load_tiles_from_file(self, file_name):
+        self.dw.tiles = []
+        footnote_text = None
+        with open(file_name, 'r', encoding='utf-8') as f:
+            reader = csv.DictReader(f, delimiter='\t')
+            read_rows = 0
+            for row in reader:
+                pts = get_pts_from_reader_row(row)
+                if read_rows == 0 and 'footnote' in row:
+                    footnote_text = row['footnote']
+                new_tile = Tile(user_points=pts, dw=self.dw)
+                new_tile.set_color_from_reader_row(row, 'start_fill_color')
+                new_tile.set_color_from_reader_row(row, 'done_fill_color')
+                new_tile.set_color_from_reader_row(row, 'start_stroke_color')
+                new_tile.set_color_from_reader_row(row, 'done_stroke_color')
+                self.dw.tiles.append(new_tile)
+                read_rows += 1
+
+        if footnote_text:
+            self.add_footnote(footnote_text)
 
 class MyApp(Adw.Application):
     def __init__(self, **kwargs):
