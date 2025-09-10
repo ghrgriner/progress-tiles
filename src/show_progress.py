@@ -333,8 +333,6 @@ class TileDrawingArea(Gtk.DrawingArea):
         self.connect('resize', self.on_resize)
         self.set_draw_func(self.on_draw, None)
 
-        self.reset_change_order()
-        self.complete_resize(self.get_width(), self.get_height())
 
     def _set_default_color(self, attr, default_value):
         try:
@@ -504,6 +502,8 @@ class MainWindow(Gtk.ApplicationWindow):
         self.add_css_class('transparent-window')
 
         self.load_tiles_from_file(TILE_FILE_NAME)
+        self.dw.reset_change_order()
+        self.dw.complete_resize(self.get_width(), self.get_height())
 
     def add_footnote(self, text):
         label = Gtk.Label()
