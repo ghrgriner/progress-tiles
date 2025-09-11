@@ -207,7 +207,7 @@ class Tile():
         self.done_fill_color = None
 
     def draw(self, cr):
-        cr.set_line_width(2)
+        cr.set_line_width(1)
         cr.new_path()
         cr.move_to(self.device_points[0][0], self.device_points[0][1])
         for pt in self.device_points[1:]:
@@ -443,12 +443,15 @@ class TileDrawingArea(Gtk.DrawingArea):
         change and the window is no longer active.
         '''
 
+        #n_in = 0
         for tile in self.tiles:
             tile.set_device_points(w, h)
             tile.set_tile_in(w, h)
             tile.set_on_border(w, h)
+            #if tile.tile_in == TileIn.IN: n_in += 1
         self.set_change_nums(border_first=BORDER_FIRST)
         self.queue_draw()
+        #print(f'{n_in=}')
 
     def set_change_nums(self, border_first=False):
         '''Set `tile.change_num` for all tiles in `self.tiles`.
