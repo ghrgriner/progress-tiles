@@ -127,7 +127,7 @@ class AllTiles:
 
     def write_points_to_file(self, file_name):
         #left, bottom, right, top = -6.5, 4, 6.5, -4
-        left, bottom, right, top = -6.5, 4.5*math.sqrt(3), 6.5, -4*math.sqrt(3)
+        left, bottom, right, top = -6.5, 4.5*math.sqrt(3), 8, -4*math.sqrt(3)
         self.set_origin(left, top)
         img_width = right - left
         img_height = bottom - top
