@@ -22,11 +22,8 @@
 
 '''Create tiling using hexagon tiles.
 
-The figure can be displayed by putting the (0,0) coordinate at the 45th
-percentile of the width and height in a display window and rescaling by the
-maximum of the display area height and weight. We chose the scaling factor
-to try to display as many tiles as possible without ever having uncovered
-portions on any window size.
+Generate a tiling of 90 hexagon tiles where the start colors are shades of
+red and the 'done' colors are shades of green.
 '''
 
 import math
@@ -39,7 +36,7 @@ TILE_FILE_NAME = 'honeycomb_tiling.txt'
 #-----------------------------------------------------------------------------
 # Global
 #-----------------------------------------------------------------------------
-SCALING = 1  # was 0.08
+SCALING = 1  # was 0.08, but no real reason to scale in this program anymore
 _COLOR = 0
 _COLOR_PERIODICITY = 7
 
@@ -127,6 +124,7 @@ class AllTiles:
 
     def write_points_to_file(self, file_name):
         #left, bottom, right, top = -6.5, 4, 6.5, -4
+        # TODO: abstract out the start / stop dimensions
         left, bottom, right, top = -6.5, 4.5*math.sqrt(3), 8, -4*math.sqrt(3)
         self.set_origin(left, top)
         img_width = right - left
