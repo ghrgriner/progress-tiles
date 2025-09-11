@@ -32,13 +32,6 @@ placed, by matching an edge of the new tile to an edge on a tile that was
 already placed. So extending this program to even larger grids is probably
 not advisable.
 
-The figure can be displayed by putting the (0,0) coordinate at the 45th
-percentile of the width and height in a display window and rescaling by the
-maximum of the display area height and weight. We chose the scaling factor
-to try to display as many tiles as possible without ever having uncovered
-portions on any window size. Users who want to see all 223 tiles can make
-SCALING smaller, say 0.03.
-
 The program can probably be extended without too much effort to use the
 other tiles in the family described by the authors in their paper (i.e.,
 the tiles in the continuum from 'chevron' to 'comet').
