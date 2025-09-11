@@ -1,7 +1,7 @@
 # Summary
 
 This is a generalization of a 'progress bar'.
-It displays tiles in a pattern chosen by the user and then 
+It displays tiles in a pattern chosen by the user and then
 listens on a FIFO for messages that include the denominator and
 then numerators of what percent of work is done and modifies
 the tiles shown based on the percentage of work done, e.g., by
@@ -33,7 +33,13 @@ The coordinates of the (polygonal) tiles to display are read from
 a text file named 'tiling.txt'. The file should have the variables:
 - px_0, py_0, ..., px_n, py_n - Coordinates of the tile. Tiles can
   have different number of vertices, with pairs left blank for tiles
-  with vertices fewer than the maximum.
+  with vertices fewer than the maximum. The value (0,0) will be
+  displayed in the upper left of the display window.
+- image_width, image_height - Image width and height. This is unitless,
+  but the scale should match that defined by the `px_` and `py_`
+  coordinates. If the aspect window in the display window doesn't match
+  the aspect ratio defined by these values, then the excess height or
+  width will not be displayed.
 - start_fill_color, start_stroke_color, done_fill_color, done_stroke_color
   (optional) - define the the default fill and stroke (tile border)
   colors in rgb or rgba hex notation (e.g., '#ff00bc' or 'de303080')
@@ -58,14 +64,22 @@ The following environment variables are used by the program:
 
 # Example
 
-Two input text files are provided.
+Three input text files are provided.
 
 1. An example using the Smith-Myers-Kaplan-Goodman-Strauss 'hat' tiles [1],
    where tiles change from opaque to transparent. See `LICENSE.txt` for
-   license and attribution information for this example.
-2. An example where tiles in a honeycomb pattern change from shades of red
-   to shades of green. To run this example, set
-   `FIFO_FILE_NAME=honeycomb_tiling.txt` in `show_progress.py` and rerun.
+   license and attribution information for this example. This example
+   defines 248 tiles. The exact number displayed depends on the cropping,
+   but the minimal cropping appears to yield 166 tiles entirely shown with
+   additional partial tiles on the image border.
+2. A larger example using the 'hat' tiles. Again, see `LICENSE.txt` for
+   the license and attribution information. This example defines 656 tiles.
+   The exact number displayed depends on the cropping, but the maximum is
+   probably about 550 tiles entirely shown. To run this example, set
+   `FIFO_FILE_NAME=hat2_tiling.txt` in `show_progress.py` and rerun.
+3. An example where tiles in a honeycomb pattern change from shades of red
+   to shades of green. This example consist of 90 tiles. To run this example,
+   set `FIFO_FILE_NAME=honeycomb_tiling.txt` in `show_progress.py` and rerun.
 
 # Running the Program
 
