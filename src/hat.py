@@ -52,8 +52,8 @@ from collections import namedtuple
 # Parameters
 #-----------------------------------------------------------------------------
 TILE_FILE_NAME = 'hat_tiling.txt'
-FIRST_TILE_W = -2
-FIRST_TILE_H = -2
+FIRST_TILE_W = 0
+FIRST_TILE_H = 0
 FIRST_TILE_ANGLE = 2*math.pi*(15/360)
 
 #-----------------------------------------------------------------------------
@@ -117,8 +117,8 @@ RIGHT_EDGES = [ OTHER_DIR[val[0]] + val[1:] for val in LEFT_EDGES ]
 MOVES = {'L' : LEFT_HAT_MOVES, 'R': RIGHT_HAT_MOVES}
 EDGES = {'L' : LEFT_EDGES , 'R': RIGHT_EDGES}
 
+#COLORS = {'r': '#ff0000', 'w': '#66ccff', 'db': '#006699', 'g': '#A0A0A0'}
 COLORS = {'lb': '#66ccff', 'w': '#ffffff', 'db': '#006699', 'g': '#A0A0A0'}
-#COLORS = {'lb': '#66ccff', 'w': '#00e000', 'db': '#ff0000', 'g': '#A0A0A0'}
 
 #-----------------------------------------------------------------------------
 # Functions
@@ -171,21 +171,18 @@ class Hat():
            match the edge of an existing tile so we know the direction and
            angle to start. Of course, for the first tile, this is `None`
            and the starting coordinates and angle are pre-defined.
-       match_rev : bool
-           We need to know not only the starting edge (from `match_edge`),
-           but also which direction on the edge we should go. This can also
-           be determined by comparing the chirality of the two tiles. If
-           they have the same chirality, then we go in the opposite
-           direction.
        color : str, valid values {'db','lb','w','g'}
            The strings are abbreviations for dark blue, light blue, grey,
            and white.
        user_points : list[(float, float)]
            Named tuple storing the coordinates of the dart
     '''
-    def __init__(self, hat_id, chirality, start_edge, color, match_edge=None,
-                 match_id=None, match_rev='', footnote=''):
-        self.chirality = chirality
+    def __init__(self, hat_id, start_edge, color, match_edge=None,
+                 match_id=None, footnote=''):
+        if color == 'db':
+            self.chirality = 'R'
+        else:
+            self.chirality = 'L'
         self.hat_id = hat_id
         self.color = color
         self.user_points = None
@@ -193,13 +190,6 @@ class Hat():
         self.match_edge = match_edge
         self.match_id = match_id
         self.footnote = footnote
-        if match_rev == '':
-            self.match_rev = True
-        elif match_rev == 'N':
-            self.match_rev = False
-        else:
-            raise ValueError(f'Invalid value {match_rev=}')
-
         self.set_user_points()
         self.set_colors()
 
@@ -209,22 +199,16 @@ class Hat():
             curr_angle = FIRST_TILE_ANGLE
         else:
             match_tile = TILES[self.match_id]
-            # see `Hat` attributes documentation for why this check
-            if ((self.chirality != match_tile.chirality and
-                self.match_rev) or
-               (self.chirality == match_tile.chirality and
-                not self.match_rev)):
-                raise ValueError('chirality / match_rev mismatch')
             # the point at `match_pos` is the END of the matching segment
             # when we first drew it, and the previous point in `user_points`
             # is the start.
             match_pos = EDGES[match_tile.chirality].index(self.match_edge)
             match_end = match_tile.user_points[match_pos]
             match_start = match_tile.user_points[(match_pos - 1) % 13]
-            if self.match_rev:
+            if self.chirality == match_tile.chirality:
                 # We always need to draw the starting edge in the opposite
                 # direction it was first drawn. However, if the chirality
-                # of the two tiles differs (equivalently, `match_rev = False`),
+                # of the two tiles differs
                 # then we can start at the previous start (since one chirality
                 # is drawn counter-clockwise and the other clockwise).
                 curr_pt = match_end
@@ -289,17 +273,44 @@ class AllTiles:
         with open('hat_config.txt', 'r', encoding='utf-8') as f:
             reader = csv.DictReader(f, delimiter='\t')
             for row in reader:
-                self.add_hat(Hat(chirality=row['chirality'],
+                self.add_hat(Hat(
                     match_id=row['match_id'], match_edge=row['match_edge'],
                     start_edge=row['start_edge'], hat_id=row['hat_id'],
-                    match_rev=row['match_rev'], color=row['color'],
-                    footnote=row['footnote']))
+                    color=row['color'], footnote=row['footnote']))
+
+    def get_pt(self, hat_id, edge):
+        '''Get point at the end of the edge
+        '''
+        tile = TILES[hat_id]
+        pt_idx = EDGES[tile.chirality].index(edge)
+        return tile.user_points[pt_idx]
+
+    def get_boundaries(self):
+        # TODO: hardcoded, from inspection of image
+        left_x = self.get_pt(hat_id='40', edge='LS')[0]
+        bottom_y = self.get_pt(hat_id='244', edge='LP')[1]
+        right_x = self.get_pt(hat_id='160', edge='RN')[0]
+        top_y = self.get_pt(hat_id='57', edge='LT')[1]
+        return left_x, bottom_y, right_x, top_y
+
+    def set_origin(self, left, top):
+        for tile in TILES.values():
+            new_pts = [
+                (pt[0] - left, pt[1] - top)
+                for pt in tile.user_points
+                      ]
+            tile.user_points = new_pts
 
     def write_points_to_file(self, file_name):
+        left, bottom, right, top = self.get_boundaries()
+        self.set_origin(left, top)
+        img_width = right - left
+        img_height = bottom - top
         with open(file_name, 'w', encoding='utf-8') as f:
             max_pts = max([len(tile.user_points) for tile in TILES.values()])
             headers = ('seq_id\tstart_fill_color\tstart_stroke_color\t'
                        'done_fill_color\tdone_stroke_color\tfootnote\t'
+                       'img_width\timg_height\t'
                        f'{pt_headers(max_pts)}')
             f.write(headers)
             f.write('\n')
@@ -310,7 +321,9 @@ class AllTiles:
                 f.write(tile.start_stroke_color + sep)
                 f.write(tile.done_fill_color + sep)
                 f.write(tile.done_stroke_color + sep)
-                f.write(tile.footnote)
+                f.write(tile.footnote + sep)
+                f.write(f'{img_width:.6f}{sep}')
+                f.write(f'{img_height:.6f}')
                 for pt in tile.user_points:
                     f.write(f'{sep}{pt[0]:.6f}{sep}{pt[1]:.6f}')
                 for _ in range(max_pts - len(tile.user_points)):

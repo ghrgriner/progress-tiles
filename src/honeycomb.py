@@ -39,7 +39,7 @@ TILE_FILE_NAME = 'honeycomb_tiling.txt'
 #-----------------------------------------------------------------------------
 # Global
 #-----------------------------------------------------------------------------
-SCALING = 0.08
+SCALING = 1  # was 0.08
 _COLOR = 0
 _COLOR_PERIODICITY = 7
 
@@ -117,11 +117,25 @@ class AllTiles:
                 self.tiles.append(Hexagon(loc_x=SCALING*(x + 1.5),
                                        loc_y=SCALING*(y + 0.5)*math.sqrt(3)))
 
+    def set_origin(self, left, top):
+        for tile in self.tiles:
+            new_pts = [
+                (pt[0] - left, pt[1] - top)
+                for pt in tile.user_points
+                      ]
+            tile.user_points = new_pts
+
     def write_points_to_file(self, file_name):
+        #left, bottom, right, top = -6.5, 4, 6.5, -4
+        left, bottom, right, top = -6.5, 4.5*math.sqrt(3), 6.5, -4*math.sqrt(3)
+        self.set_origin(left, top)
+        img_width = right - left
+        img_height = bottom - top
         with open(file_name, 'w', encoding='utf-8') as f:
             max_pts = max([len(tile.user_points) for tile in self.tiles])
             headers = ('seq_id\tstart_fill_color\tstart_stroke_color\t'
                        'done_fill_color\tdone_stroke_color\t'
+                       'img_width\timg_height\t'
                        f'{pt_headers(max_pts)}')
             f.write(headers)
             f.write('\n')
@@ -131,7 +145,9 @@ class AllTiles:
                 f.write(tile.start_fill_color + sep)
                 f.write(tile.start_stroke_color + sep)
                 f.write(tile.done_fill_color + sep)
-                f.write(tile.done_stroke_color)
+                f.write(tile.done_stroke_color + sep)
+                f.write(f'{img_width:.6f}{sep}')
+                f.write(f'{img_height:.6f}')
                 for pt in tile.user_points:
                     f.write(f'{sep}{pt[0]:.6f}{sep}{pt[1]:.6f}')
                 for _ in range(max_pts - len(tile.user_points)):

@@ -73,14 +73,21 @@ def convert_rgba_to_hex(r, g, b, a=None):
     else:
         return f'#{hex2(255*r)}{hex2(255*g)}{hex2(255*b)}{hex2(255*a)}'
 
-def get_origin_and_scale(w, h):
-    x0 = 0.45*w
-    y0 = 0.45*h
+def get_origin_and_scale(img_width, img_height, w, h):
+    #x0 = 0.45*w
+    #y0 = 0.45*h
+    #print(f'{img_width=}, {img_height=}, {w=}, {h=}')
+    #if w/h > img_width/img_height:
+    #    scale = w
+    #else:
+    #    scale = h
 
-    if w>h:
-        scale = w
-    else:
-        scale = h
+    x0, y0 = (0, 0)
+
+    if h == 0:
+        return x0, y0, 1
+
+    scale = max(w / img_width, h / img_height)
 
     return x0, y0, scale
 
@@ -241,7 +248,8 @@ class Tile():
         cr.stroke()
 
     def set_device_points(self, w, h):
-        x0, y0, scale = get_origin_and_scale(w, h)
+        x0, y0, scale = get_origin_and_scale(self.dw.img_width,
+                                             self.dw.img_height, w, h)
 
         self.device_points = [
             (x0 + scale*val[0], y0 + scale*val[1]) for val in self.user_points]
@@ -526,6 +534,8 @@ class MainWindow(Gtk.ApplicationWindow):
 
     def load_tiles_from_file(self, file_name):
         self.dw.tiles = []
+        self.dw.img_width = None
+        self.dw.img_height = None
         footnote_text = None
         with open(file_name, 'r', encoding='utf-8') as f:
             reader = csv.DictReader(f, delimiter='\t')
@@ -534,6 +544,10 @@ class MainWindow(Gtk.ApplicationWindow):
                 pts = get_pts_from_reader_row(row)
                 if read_rows == 0 and 'footnote' in row:
                     footnote_text = row['footnote']
+                if read_rows == 0:
+                    self.dw.img_height = float(row['img_height'])
+                if read_rows == 0:
+                    self.dw.img_width = float(row['img_width'])
                 new_tile = Tile(user_points=pts, dw=self.dw)
                 new_tile.set_color_from_reader_row(row, 'start_fill_color')
                 new_tile.set_color_from_reader_row(row, 'done_fill_color')
