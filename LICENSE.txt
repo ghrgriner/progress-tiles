@@ -2,8 +2,9 @@
 License for Python code in this package
 ---------------------------------------
 The code for creating the coordinates for 'hat' tiles (src/hat.py,
-src/hat_config.txt, src/hat_tiling.txt) is provided under the
-MIT license. The same is true for the honeycomb example (src/honeycomb.py,
+src/hat_config.txt, src/hat_tiling.txt, and similary for files with
+'hat2' in the name) is provided under the MIT license. The same is
+true for the honeycomb example (src/honeycomb.py,
 src/honeycomb_tiling.txt). 
 
 The other *.py file (src/show_progress.py) is licensed under the
@@ -14,26 +15,33 @@ in the src/ directory for the license.
 License and attribution information for hat tiling
 -------------------------------------------------------------
 Images based on the 'hat' tiling [1] are made available under
-the CC BY-SA 4.0 license.
+the CC BY-SA 4.0 license by the authors, and we release
+our modifications under the same license.
 
 [1] Smith D, Myers JS, Kaplan CS, Goodman-Strauss C. An aperiodic monotile. Combinatorial Theory, 4(1):1-91.
 
-The image in particular used is a screenshot of a looping
-animation by the authors that loops between the chevron, comet,
-and other continuum of tiles. This image is then slightly modified
-for use. The colors are similar but not identical, when the image
-is displayed in the app it may be cropped, tiles with only a
-small portion visible in the original image may be omitted, and
-the vertical alignment is similar but probably not identical to the
-original image.
+Two images in particular are used.
 
-This program can also be configured to modify the image in other
+The image used by src/hat.py which generates coordinates in
+src/hat_tiling.txt is a screenshot of a looping animation by the
+authors that loops between the chevron, comet, and other continuum
+of tiles. This image is then slightly modified for use. The colors
+are similar but not identical and the vertical alignment is similar but
+probably not identical to the original image.
+
+The second image used by src/hat2.py which generates coordinates in
+src/hat2_tiling.txt is a recreation of patch647.png. Here, the color
+scheme is changed to be similar to the first image.
+
+This program can also be configured to modify the images in other
 ways, such as changing the fill color, border color, or transparency
-of each tile.
+of each tile. The window that displays the image may crop the image
+depending on the window dimensions selected by the user.
 
 The webpage with the images is: https://cs.uwaterloo.ca/~csk/hat/. 
 
 The link to the GIF used is: https://cs.uwaterloo.ca/~csk/hat/examples/animation.gif
+The link to the second image is: https://cs.uwaterloo.ca/~csk/hat/examples/patch647.png
 
 ----------
 
