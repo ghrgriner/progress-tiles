@@ -20,7 +20,7 @@ on Windows, it probably needs modification to run on that platform.
 The program was originally written for use with a custom add-on
 for the (desktop version of) Anki flashcard software that
 sends the messages as flashcards are reviewed. The code for this
-add-on will be shared in a different repository.
+add-on is [available for download on Ankiweb](https://ankiweb.net/shared/info/1300160579).
 
 Additional technical details are in the docstring headers of the
 programs.
