@@ -48,19 +48,21 @@ TILE_FILE_NAME = 'hat_tiling.txt'
 FIRST_TILE_W = 0
 FIRST_TILE_H = 0
 FIRST_TILE_ANGLE = 2*math.pi*(15/360)
+TILE_PARAM1 = 1
+TILE_PARAM2 = math.sqrt(3)
 
 #-----------------------------------------------------------------------------
 # Global
 #-----------------------------------------------------------------------------
-SCALING = 0.041
+SCALING = 0.0205
 _COLOR = 0
 _COLOR_PERIODICITY = 7
 TILES = {}
 
 # The hat tiles can be drawn on a hexagonal grid
-DISTS = {'FS': SCALING * 1,      # full side of hexagon
-         'HS': SCALING * 0.5,    # half-side of hexagon
-         'HH': SCALING * math.sqrt(3)/2}  # half-height of hexagon
+DISTS = {'FS': SCALING * 2 * TILE_PARAM1, # for hat, full side of hexagon
+         'HS': SCALING * TILE_PARAM1,    # for hat, half-side of hexagon
+         'HH': SCALING * TILE_PARAM2}  # for hat, half-height of hexagon
 
 # Other direction, i.e., map R to L and vice-versa
 OTHER_DIR = {'L': 'R',
