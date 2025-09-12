@@ -52,7 +52,7 @@ hat_id	color	start_edge	match_id	match_edge	footnote
 51	lb	LP	50	RH	
 52	w	LH	51	RN	
 53	w	RH	52	LP	
-54	db	LH	52	DW	
+54	db	RN	47	RT	
 55	lb	LH	53	RW	
 56	lb	LN	55	LW	
 57	db	RS	56	RP	
@@ -142,9 +142,9 @@ hat_id	color	start_edge	match_id	match_edge	footnote
 141	lb	LS	139	LN	
 142	g	RS	139	RS	
 143	w	LN	142	LS	
-144	db	LH	143	DW	
-145	lb	LT	137	LW	
-146	w	LS	145	RT	
+144	lb	LT	137	LW	
+145	db	LT	144	LN	
+146	w	LS	144	RT	
 147	lb	LT	146	LW	
 148	db	LT	147	LN	
 149	lb	LN	133	LW	
