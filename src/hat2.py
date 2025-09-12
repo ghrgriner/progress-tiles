@@ -164,7 +164,7 @@ class Hat():
            match the edge of an existing tile so we know the direction and
            angle to start. Of course, for the first tile, this is `None`
            and the starting coordinates and angle are pre-defined.
-       color : str, valid values {'db','lb','w','g'}
+       color : str, valid values {'db','r','w','g'}
            The strings are abbreviations for dark blue, light blue, grey,
            and white.
        user_points : list[(float, float)]
