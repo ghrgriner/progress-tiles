@@ -81,6 +81,8 @@ Three input text files are provided.
    to shades of green. This example consist of 90 tiles. To run this example,
    set `FIFO_FILE_NAME=honeycomb_tiling.txt` in `show_progress.py` and rerun.
 
+Screenshots of the examples can be found [on the wiki](https://github.com/ghrgriner/progress-tiles/wiki/Examples).
+
 # Running the Program
 
 Run the program with `python3 show_progress.py`. It's not necessary to run
