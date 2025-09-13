@@ -49,7 +49,7 @@ all_tiles = AllTiles(tile_param1=1, tile_param2=math.sqrt(3),
               chiralities={'lb': 'L', 'w': 'L', 'db': 'R', 'g': 'L'},
               colors={'lb': '#66ccff', 'w': '#ffffff', 'db': '#006699',
                       'g': '#A0A0A0'},
-              first_tile_angle=2*math.pi*(15/360))
+              first_tile_angle=2*math.pi*(14/360))
 
 all_tiles.add_all_tiles(input_file_name = 'hat_config.txt')
 

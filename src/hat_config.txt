@@ -249,3 +249,6 @@ tile_id	color	start_edge	match_id	match_edge	footnote
 248	g	LW	223	LN	
 249	lb	RT	110	RN	
 250	g	LN	230	RP	
+251	g	RS	42	RS	left border
+252	g	LS	237	LT	bottom border
+253	lb	RT	226	RN	right border
