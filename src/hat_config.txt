@@ -1,4 +1,4 @@
-hat_id	color	start_edge	match_id	match_edge	footnote
+tile_id	color	start_edge	match_id	match_edge	footnote
 1	lb	LP			Starting tile pattern based on the hat tiling in a <a href="https://cs.uwaterloo.ca/~csk/hat/examples/animation.gif">looping animated GIF</a> by David Smith, Joseph Samuel Myers, Craig S. Kaplan, and Chaim Goodman-Strauss, used under <a href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> / This is a recreation of the original rather than a screenshot, and the cropping, colors, and vertical orientation differ slightly from the original.
 2	g	RN	1	LH	
 3	w	RN	2	LH	
