@@ -51,6 +51,15 @@ FIRST_TILE_H = 0
 FIRST_TILE_ANGLE = 2*math.pi*(15/360)
 TILE_PARAM1 = 1
 TILE_PARAM2 = math.sqrt(3)
+CHIRALITIES = {'lb': 'L', 'w': 'L', 'db': 'R', 'g': 'L'}
+COLORS = {'lb': '#66ccff', 'w': '#ffffff', 'db': '#006699', 'g': '#A0A0A0'}
+
+PointRef = namedtuple('PointRef', ['tile_id', 'edge'])
+
+LEFT_POINT = PointRef(tile_id='40', edge='LS')
+BOTTOM_POINT = PointRef(tile_id='244', edge='LP')
+RIGHT_POINT = PointRef(tile_id='160', edge='RN')
+TOP_POINT = PointRef(tile_id='57', edge='LT')
 
 #-----------------------------------------------------------------------------
 # Global
@@ -113,9 +122,6 @@ RIGHT_EDGES = [ OTHER_DIR[val[0]] + val[1:] for val in LEFT_EDGES ]
 MOVES = {'L' : LEFT_HAT_MOVES, 'R': RIGHT_HAT_MOVES}
 EDGES = {'L' : LEFT_EDGES , 'R': RIGHT_EDGES}
 
-#COLORS = {'r': '#ff0000', 'w': '#66ccff', 'db': '#006699', 'g': '#A0A0A0'}
-COLORS = {'lb': '#66ccff', 'w': '#ffffff', 'db': '#006699', 'g': '#A0A0A0'}
-
 #-----------------------------------------------------------------------------
 # Functions
 #-----------------------------------------------------------------------------
@@ -153,7 +159,7 @@ class Hat():
 
        Attributes
        ----------
-       hat_id : int
+       tile_id : int
            Unique integer for each tile
        chirality : str, 'L' or 'R'
            which side of the shirt is 'untucked'
@@ -167,19 +173,16 @@ class Hat():
            match the edge of an existing tile so we know the direction and
            angle to start. Of course, for the first tile, this is `None`
            and the starting coordinates and angle are pre-defined.
-       color : str, valid values {'db','lb','w','g'}
+       color : str
            The strings are abbreviations for dark blue, light blue, grey,
            and white.
        user_points : list[(float, float)]
            Named tuple storing the coordinates of the dart
     '''
-    def __init__(self, hat_id, start_edge, color, match_edge=None,
+    def __init__(self, tile_id, start_edge, color, match_edge=None,
                  match_id=None, footnote=''):
-        if color == 'db':
-            self.chirality = 'R'
-        else:
-            self.chirality = 'L'
-        self.hat_id = hat_id
+        self.chirality = CHIRALITIES[color]
+        self.tile_id = tile_id
         self.color = color
         self.user_points = None
         self.start_edge = start_edge
@@ -261,9 +264,9 @@ class AllTiles:
         return f'tiles={self.tiles}'
 
     def add_hat(self, hat):
-        if hat.hat_id in TILES:
-            raise ValueError(f'id already exists {hat.hat_id=}')
-        TILES[hat.hat_id] = hat
+        if hat.tile_id in TILES:
+            raise ValueError(f'id already exists {hat.tile_id=}')
+        TILES[hat.tile_id] = hat
 
     def add_all_tiles(self):
         with open(INPUT_FILE_NAME, 'r', encoding='utf-8') as f:
@@ -271,22 +274,21 @@ class AllTiles:
             for row in reader:
                 self.add_hat(Hat(
                     match_id=row['match_id'], match_edge=row['match_edge'],
-                    start_edge=row['start_edge'], hat_id=row['hat_id'],
+                    start_edge=row['start_edge'], tile_id=row['tile_id'],
                     color=row['color'], footnote=row['footnote']))
 
-    def get_pt(self, hat_id, edge):
+    def get_pt(self, pt_ref):
         '''Get point at the end of the edge
         '''
-        tile = TILES[hat_id]
-        pt_idx = EDGES[tile.chirality].index(edge)
+        tile = TILES[pt_ref.tile_id]
+        pt_idx = EDGES[tile.chirality].index(pt_ref.edge)
         return tile.user_points[pt_idx]
 
     def get_boundaries(self):
-        # TODO: hardcoded, from inspection of image
-        left_x = self.get_pt(hat_id='40', edge='LS')[0]
-        bottom_y = self.get_pt(hat_id='244', edge='LP')[1]
-        right_x = self.get_pt(hat_id='160', edge='RN')[0]
-        top_y = self.get_pt(hat_id='57', edge='LT')[1]
+        left_x = self.get_pt(LEFT_POINT)[0]
+        bottom_y = self.get_pt(BOTTOM_POINT)[1]
+        right_x = self.get_pt(RIGHT_POINT)[0]
+        top_y = self.get_pt(TOP_POINT)[1]
         return left_x, bottom_y, right_x, top_y
 
     def set_origin(self, left, top):
