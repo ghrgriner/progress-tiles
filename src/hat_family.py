@@ -53,6 +53,7 @@ OTHER_DIR = {'L': 'R',
              'D': 'D'}
 
 Move = namedtuple('Move', ['turn', 'angle', 'd'])
+Segment = namedtuple('Segment', ['start', 'stop'])
 
 # start at 'left armpit' of 'left-untucked shirt'
 # This is how you draw the hat. First move d, and then turn.
@@ -103,6 +104,10 @@ def convert_rgba_to_hex(r, g, b, a=None):
         return f'#{r:02X}{g:02X}{b:02X}'
     else:
         return f'#{r:02X}{g:02X}{b:02X}{a:02X}'
+
+def dist(pt1, pt2):
+    return math.sqrt((pt2[1]-pt1[1])**2 +
+                     (pt2[0]-pt1[0])**2)
 
 def pt_headers(max_pts, sep='\t'):
     ret_list = []
@@ -371,6 +376,61 @@ class AllTiles:
         else:
             top_y = self.top_y
         return left_x, bottom_y, right_x, top_y
+
+    def rotate_and_rescale(self, angle, scaling):
+        for tile in self.tiles.values():
+            new_pts = [
+                (scaling*(math.cos(angle)*pt[0] - math.sin(angle)*pt[1]),
+                 scaling*(math.sin(angle)*pt[0] + math.cos(angle)*pt[1]))
+                for pt in tile.user_points
+                      ]
+            tile.user_points = new_pts
+
+    def change_coordinates(self,
+                           new_segment_coords,
+                           old_segment_coords):
+        '''Change coordinates based on new/old coordinates for 1 segment.
+
+        This changes the coordinates in `Tile.user_points` for all tiles.
+        It doesn't affect the coordinates defined by `self.left_x`,
+        `self.right_x`, but this may change in the future.
+
+        The usefulness of the function is as follows. Suppose we have
+        a rectangle of 'hat' tiles and want to replace them with other
+        tiles in the family (by changing `AllTiles.tile1_param` and
+        `AllTiles.tile2_param`), then the approximate rectangle of
+        tiles will rotate when the length parameters change. We could
+        of course display the rotated graph, but the authors choose an
+        animation where the original tiles stay in approximately the
+        same location.
+
+        For example, some of the metatiles are surrounded by triskelions
+        whose centers form an equilateral triangle. See for example,
+        Figure 2.6 in the cited reference. The animation of the authors
+        appears to be constructed so that the vertices of at least one of
+        these triangles is fixed no matter the length parameter.
+        Probably this implies that the vertices of some other such
+        triangles are fixed, but it doesn't appear to be true that the
+        vertices of all triskelion centers are fixed as the length
+        parameter changes. In any case, whether the 'fixing' of the
+        vertices of this particular triangle was exact by the authors or
+        only a near approximation, treating it as exact closely
+        approximate screenshots of the original gif.
+
+        The function parameters are a segment between two of the
+        triskelion centers in the reference coordinate system we used to
+        draw the 'hat' tiles and a segment between the same points
+        represented in the coordinate system we used to draw the other
+        tiles.
+        '''
+        pt1n, pt2n = new_segment_coords.start, new_segment_coords.stop
+        pt1o, pt2o = old_segment_coords.start, old_segment_coords.stop
+        a1 = get_angle(pt1n, pt2n)
+        a2 = get_angle(pt1o, pt2o)
+        self.set_origin(pt2o[0], pt2o[1])
+        self.rotate_and_rescale(angle=a1-a2,
+             scaling=dist(pt1n, pt2n)/dist(pt1o,pt2o))
+        self.set_origin(-pt2n[0], -pt2n[1])
 
     def set_origin(self, left, top):
         for tile in self.tiles.values():
