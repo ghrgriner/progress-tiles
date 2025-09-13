@@ -29,7 +29,7 @@ page https://cs.uwaterloo.ca/~csk/hat/. See the footnote on the first
 
 import math
 
-from hat_family import AllTiles, PointRef
+from hat_family import AllTiles
 
 #-----------------------------------------------------------------------------
 # Main Entry Point
@@ -38,12 +38,16 @@ from hat_family import AllTiles, PointRef
 all_tiles = AllTiles(tile_param1=1, tile_param2=math.sqrt(3),
               chiralities={'r': 'R', 'w': 'R', 'db': 'L', 'g': 'R'},
               colors={'r': '#66ccff', 'w': '#ffffff', 'db': '#006699',
-                      'g': '#A0A0A0'},
-              left_point=PointRef(tile_id='254', edge='RT'),
-              bottom_point=PointRef(tile_id='128', edge='LN'),
-              right_point=PointRef(tile_id='457', edge='LN'),
-              top_point=PointRef(tile_id='153', edge='LN'))
+                      'g': '#A0A0A0'})
 
 all_tiles.add_all_tiles(input_file_name = 'hat2_config.txt')
+
+all_tiles.set_crop_values(
+              left_x=all_tiles.get_pt(tile_id='254', edge='RT')[0],
+              bottom_y=all_tiles.get_pt(tile_id='128', edge='LN')[1],
+              right_x=all_tiles.get_pt(tile_id='457', edge='LN')[0],
+              top_y=all_tiles.get_pt(tile_id='153', edge='LN')[1]
+                         )
+
 all_tiles.write_points_to_file('hat2_tiling.txt')
 

@@ -39,8 +39,6 @@ from collections import namedtuple
 #-----------------------------------------------------------------------------
 # Parameters
 #-----------------------------------------------------------------------------
-PointRef = namedtuple('PointRef', ['tile_id', 'edge'])
-
 #-----------------------------------------------------------------------------
 # Global
 #-----------------------------------------------------------------------------
@@ -172,7 +170,7 @@ class HatFamilyTile():
         Stroke color for the tile in the 'done' state, as rgb/rgba hex
         string.
     footnote : str
-        Footnote to pass through to the output. However, `show_progress.py` 
+        Footnote to pass through to the output. However, `show_progress.py`
         will only consider the value on the first non-header row, so this
         doesn't really need to be a tile attribute, but it is for now.
     '''
@@ -189,7 +187,7 @@ class HatFamilyTile():
         self.set_user_points(all_tiles)
         self.set_colors(all_tiles.colors)
 
-    def get_boundary(self, side): 
+    def get_boundary(self, side):
         if side == 'L':
             return min([ pt[0] for pt in self.user_points ])
         elif side == 'R':
@@ -259,7 +257,7 @@ class HatFamilyTile():
 
 class AllTiles:
     '''Class for holding, loading, and writing to file all the tiles.
-       
+
     Attributes
     ----------
     tile_id : str
@@ -271,13 +269,13 @@ class AllTiles:
         The other side length. This is the longer side for the 'hat' tile.
     chiralities : dict[str, Union['L','R']]
         Dictionary that takes the strings representing the color from the
-        input file (which is typically a short abbreviation like 'w' for 
+        input file (which is typically a short abbreviation like 'w' for
         'white') and returns the chirality. This is possible since all the
         examples we provide color the opposite chirality with a different
         color.
     colors : dict[str, str]
         Dictionary that takes the strings representing the color from the
-        input file (which is typically a short abbreviation like 'w' for 
+        input file (which is typically a short abbreviation like 'w' for
         'white') and returns a rgb or rgba hex string (e.g., '#ff0000').
     first_tile_angle : float, optional (default=0)
         The angle the first edge in the first tile is drawn at.
@@ -286,26 +284,21 @@ class AllTiles:
         this factor. This is provided for now for backwards compatability.
         It is less important since the window in `show_progress.py` will
         also resize the image.
-    left_point : PointRef, optional (default = None)
-        The point to use as the left-most boundary of the image for
-        display. If None, then the minimum of all x-coordinates of all
-        points is used.
-    bottom_point : PointRef, optional (default = None)
-        The point to use as the bottom-most boundary of the image for
-        display. If None, then the maximum of all y-coordinates of all
-        points is used.
-    right_point : PointRef, optional (default = None)
-        The point to use as the right-most boundary of the image for
-        display. If None, then the maximum of all x-coordinates of all
-        points is used.
-    top_point : PointRef, optional (default = None)
-        The point to use as the top-most boundary of the image for
-        display. If None, then the minimum of all y-coordinates of all
-        points is used.
+    left_x : float, optional (default = None)
+        Left x-coordinate to use when cropping. If None, then the minimum
+        of all x-coordinates of all points is used.
+    right_x : float, optional (default = None)
+        Right x-coordinate to use when cropping. If None, then the maximum
+        of all x-coordinates of all points is used.
+    bottom_y : float, optional (default = None)
+        Bottom y-coordinate to use when cropping. If None, then the maximum
+        of all y-coordinates of all points is used.
+    top_y : float, optional (default = None)
+        Top y-coordinate to use when cropping. If None, then the minimum
+        of all y-coordinates of all points is used.
     '''
     def __init__(self, tile_param1, tile_param2, chiralities, colors,
-                 first_tile_angle=0, scaling=1, left_point=None,
-                 bottom_point=None, right_point=None, top_point=None):
+                 first_tile_angle=0, scaling=1):
         self.tiles = {}
         self.tile_param1 = tile_param1
         self.tile_param2 = tile_param2
@@ -313,10 +306,10 @@ class AllTiles:
         self.colors = colors
         self.first_tile_angle = first_tile_angle
         self.scaling = scaling
-        self.left_point = left_point
-        self.bottom_point = bottom_point
-        self.right_point = right_point
-        self.top_point = top_point
+        self.left_x = None
+        self.right_x = None
+        self.top_y = None
+        self.bottom_y = None
 
         self.dists = {'FS': scaling * 2 * tile_param1,
                  'HS': scaling * tile_param1,
@@ -324,6 +317,13 @@ class AllTiles:
 
     def __str__(self):
         return f'tiles={self.tiles}'
+
+    def set_crop_values(self, left_x=None, bottom_y=None, right_x=None,
+                              top_y=None):
+        self.left_x = left_x
+        self.bottom_y = bottom_y
+        self.right_x = right_x
+        self.top_y = top_y
 
     def add_hat(self, hat):
         if hat.tile_id in self.tiles:
@@ -339,37 +339,37 @@ class AllTiles:
                     start_edge=row['start_edge'], tile_id=row['tile_id'],
                     color=row['color'], footnote=row['footnote']))
 
-    def get_pt(self, pt_ref):
+    def get_pt(self, tile_id, edge):
         '''Get point at the end of the edge
         '''
-        tile = self.tiles[pt_ref.tile_id]
-        pt_idx = EDGES[tile.chirality].index(pt_ref.edge)
+        tile = self.tiles[tile_id]
+        pt_idx = EDGES[tile.chirality].index(edge)
         return tile.user_points[pt_idx]
 
     def get_boundaries(self):
-        if self.left_point is None:
+        if self.left_x is None:
             left_x = min(
                [ tile.get_boundary('L') for tile in self.tiles.values() ])
         else:
-            left_x = self.get_pt(self.left_point)[0]
+            left_x = self.left_x
 
-        if self.bottom_point is None:
+        if self.bottom_y is None:
             bottom_y = max(
                [ tile.get_boundary('B') for tile in self.tiles.values() ])
         else:
-            bottom_y = self.get_pt(self.bottom_point)[1]
+            bottom_y = self.bottom_y
 
-        if self.right_point is None:
+        if self.right_x is None:
             right_x = max(
                [ tile.get_boundary('R') for tile in self.tiles.values() ])
         else:
-            right_x = self.get_pt(self.right_point)[0]
+            right_x = self.right_x
 
-        if self.top_point is None:
+        if self.top_y is None:
             top_y = min(
                [ tile.get_boundary('T') for tile in self.tiles.values() ])
         else:
-            top_y = self.get_pt(self.top_point)[1]
+            top_y = self.top_y
         return left_x, bottom_y, right_x, top_y
 
     def set_origin(self, left, top):
@@ -386,7 +386,9 @@ class AllTiles:
         img_width = right - left
         img_height = bottom - top
         with open(file_name, 'w', encoding='utf-8') as f:
-            max_pts = max([len(tile.user_points) for tile in self.tiles.values()])
+            max_pts = max(
+                [len(tile.user_points) for tile in self.tiles.values()]
+                         )
             headers = ('seq_id\tstart_fill_color\tstart_stroke_color\t'
                        'done_fill_color\tdone_stroke_color\tfootnote\t'
                        'img_width\timg_height\t'

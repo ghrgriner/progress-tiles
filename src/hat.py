@@ -39,7 +39,7 @@ the tiles in the continuum from 'chevron' to 'comet').
 
 import math
 
-from hat_family import AllTiles, PointRef
+from hat_family import AllTiles
 
 #-----------------------------------------------------------------------------
 # Main Entry Point
@@ -49,12 +49,15 @@ all_tiles = AllTiles(tile_param1=1, tile_param2=math.sqrt(3),
               chiralities={'lb': 'L', 'w': 'L', 'db': 'R', 'g': 'L'},
               colors={'lb': '#66ccff', 'w': '#ffffff', 'db': '#006699',
                       'g': '#A0A0A0'},
-              first_tile_angle=2*math.pi*(15/360),
-              left_point=PointRef(tile_id='40', edge='LS'),
-              bottom_point=PointRef(tile_id='244', edge='LP'),
-              right_point=PointRef(tile_id='160', edge='RN'),
-              top_point=PointRef(tile_id='220', edge='LN'))
+              first_tile_angle=2*math.pi*(15/360))
 
 all_tiles.add_all_tiles(input_file_name = 'hat_config.txt')
-all_tiles.write_points_to_file('hat_tiling.txt')
 
+all_tiles.set_crop_values(
+              left_x=all_tiles.get_pt(tile_id='40', edge='LS')[0],
+              bottom_y=all_tiles.get_pt(tile_id='244', edge='LP')[1],
+              right_x=all_tiles.get_pt(tile_id='160', edge='RN')[0],
+              top_y=all_tiles.get_pt(tile_id='220', edge='LN')[1]
+                         )
+
+all_tiles.write_points_to_file('hat_tiling.txt')
