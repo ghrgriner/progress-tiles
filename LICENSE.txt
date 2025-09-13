@@ -22,8 +22,10 @@ our modifications under the same license.
 
 Two images in particular are used.
 
-The image used by src/hat.py which generates coordinates in
-src/hat_tiling.txt is a screenshot of a looping animation by the
+The source images for src/hatlike.py which generates coordinates in
+hat_tiling.txt, tile_10_1_tiling.txt, tile_4_1_tiling.txt, turtle_tiling.txt,
+tile_1_1_tiling.txt, tile_1_4_tiling.txt, and tile_1_10_tiling.txt
+are similar to screenshots of a looping animation by the
 authors that loops between the chevron, comet, and other continuum
 of tiles. This image is then slightly modified for use. The colors
 are similar but not identical and the vertical alignment is similar but
@@ -31,7 +33,7 @@ probably not identical to the original image.
 
 The second image used by src/hat2.py which generates coordinates in
 src/hat2_tiling.txt is a recreation of patch647.png. Here, the color
-scheme is changed to be similar to the first image.
+scheme is changed to be similar to the first set of images.
 
 This program can also be configured to modify the images in other
 ways, such as changing the fill color, border color, or transparency
