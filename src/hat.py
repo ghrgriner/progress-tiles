@@ -54,7 +54,7 @@ all_tiles = AllTiles(tile_param1=1, tile_param2=math.sqrt(3),
               left_point=PointRef(tile_id='40', edge='LS'),
               bottom_point=PointRef(tile_id='244', edge='LP'),
               right_point=PointRef(tile_id='160', edge='RN'),
-              top_point=PointRef(tile_id='57', edge='LT'))
+              top_point=PointRef(tile_id='220', edge='LN'))
 
 all_tiles.add_all_tiles(input_file_name = 'hat_config.txt')
 all_tiles.write_points_to_file('hat_tiling.txt')
