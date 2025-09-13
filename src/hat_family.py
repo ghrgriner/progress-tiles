@@ -198,30 +198,34 @@ class HatFamilyTile():
         elif side == 'T':
             return min([ pt[1] for pt in self.user_points ])
 
+    def get_start_point_and_angle(self, all_tiles):
+        match_tile = all_tiles.tiles[self.match_id]
+        # the point at `match_pos` is the END of the matching segment
+        # when we first drew it, and the previous point in `user_points`
+        # is the start.
+        match_pos = EDGES[match_tile.chirality].index(self.match_edge)
+        match_end = match_tile.user_points[match_pos]
+        match_start = match_tile.user_points[(match_pos - 1) % 13]
+        if self.chirality == match_tile.chirality:
+            # We always need to draw the starting edge in the opposite
+            # direction it was first drawn. However, if the chirality
+            # of the two tiles differs
+            # then we can start at the previous start (since one chirality
+            # is drawn counter-clockwise and the other clockwise).
+            curr_pt = match_end
+            curr_angle = get_angle(start=match_end, end=match_start)
+        else:
+            curr_pt = match_start
+            curr_angle = get_angle(start=match_start, end=match_end)
+        return curr_pt, curr_angle
+
     def set_user_points(self, all_tiles):
         if not self.match_edge:
             curr_pt = (_FIRST_TILE_W * all_tiles.scaling,
                        _FIRST_TILE_H * all_tiles.scaling)
             curr_angle = all_tiles.first_tile_angle
         else:
-            match_tile = all_tiles.tiles[self.match_id]
-            # the point at `match_pos` is the END of the matching segment
-            # when we first drew it, and the previous point in `user_points`
-            # is the start.
-            match_pos = EDGES[match_tile.chirality].index(self.match_edge)
-            match_end = match_tile.user_points[match_pos]
-            match_start = match_tile.user_points[(match_pos - 1) % 13]
-            if self.chirality == match_tile.chirality:
-                # We always need to draw the starting edge in the opposite
-                # direction it was first drawn. However, if the chirality
-                # of the two tiles differs
-                # then we can start at the previous start (since one chirality
-                # is drawn counter-clockwise and the other clockwise).
-                curr_pt = match_end
-                curr_angle = get_angle(start=match_end, end=match_start)
-            else:
-                curr_pt = match_start
-                curr_angle = get_angle(start=match_start, end=match_end)
+            curr_pt, curr_angle = self.get_start_point_and_angle(all_tiles)
 
         pts = []
 
