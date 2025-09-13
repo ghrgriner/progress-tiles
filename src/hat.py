@@ -45,6 +45,7 @@ from collections import namedtuple
 # Parameters
 #-----------------------------------------------------------------------------
 TILE_FILE_NAME = 'hat_tiling.txt'
+INPUT_FILE_NAME = 'hat_config.txt'
 FIRST_TILE_W = 0
 FIRST_TILE_H = 0
 FIRST_TILE_ANGLE = 2*math.pi*(15/360)
@@ -265,7 +266,7 @@ class AllTiles:
         TILES[hat.hat_id] = hat
 
     def add_all_tiles(self):
-        with open('hat_config.txt', 'r', encoding='utf-8') as f:
+        with open(INPUT_FILE_NAME, 'r', encoding='utf-8') as f:
             reader = csv.DictReader(f, delimiter='\t')
             for row in reader:
                 self.add_hat(Hat(
