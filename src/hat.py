@@ -46,8 +46,6 @@ from collections import namedtuple
 #-----------------------------------------------------------------------------
 TILE_FILE_NAME = 'hat_tiling.txt'
 INPUT_FILE_NAME = 'hat_config.txt'
-FIRST_TILE_W = 0
-FIRST_TILE_H = 0
 FIRST_TILE_ANGLE = 2*math.pi*(15/360)
 TILE_PARAM1 = 1
 TILE_PARAM2 = math.sqrt(3)
@@ -68,6 +66,9 @@ SCALING = 0.0205
 _COLOR = 0
 _COLOR_PERIODICITY = 7
 TILES = {}
+
+_FIRST_TILE_W = 0
+_FIRST_TILE_H = 0
 
 # The hat tiles can be drawn on a hexagonal grid
 DISTS = {'FS': SCALING * 2 * TILE_PARAM1, # for hat, full side of hexagon
@@ -194,7 +195,7 @@ class Hat():
 
     def set_user_points(self):
         if not self.match_edge:
-            curr_pt = (FIRST_TILE_W * SCALING, FIRST_TILE_H * SCALING)
+            curr_pt = (_FIRST_TILE_W * SCALING, _FIRST_TILE_H * SCALING)
             curr_angle = FIRST_TILE_ANGLE
         else:
             match_tile = TILES[self.match_id]
