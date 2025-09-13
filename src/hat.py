@@ -53,6 +53,9 @@ all_tiles = AllTiles(tile_param1=1, tile_param2=math.sqrt(3),
 
 all_tiles.add_all_tiles(input_file_name = 'hat_config.txt')
 
+all_tiles.footnote = all_tiles.footnote.replace('BASED_ON_TILING',
+    'the hat tiling')
+
 all_tiles.set_crop_values(
               left_x=all_tiles.get_pt(tile_id='40', edge='LS')[0],
               bottom_y=all_tiles.get_pt(tile_id='244', edge='LP')[1],

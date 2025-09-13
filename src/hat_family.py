@@ -174,10 +174,6 @@ class HatFamilyTile():
     done_stroke_color : str
         Stroke color for the tile in the 'done' state, as rgb/rgba hex
         string.
-    footnote : str
-        Footnote to pass through to the output. However, `show_progress.py`
-        will only consider the value on the first non-header row, so this
-        doesn't really need to be a tile attribute, but it is for now.
     '''
     def __init__(self, all_tiles, tile_id, start_edge, color, match_edge=None,
                  match_id=None, footnote=''):
@@ -301,6 +297,8 @@ class AllTiles:
     top_y : float, optional (default = None)
         Top y-coordinate to use when cropping. If None, then the minimum
         of all y-coordinates of all points is used.
+    footnote : str
+        Footnote to pass through to the output.
     '''
     def __init__(self, tile_param1, tile_param2, chiralities, colors,
                  first_tile_angle=0, scaling=1):
@@ -338,11 +336,15 @@ class AllTiles:
     def add_all_tiles(self, input_file_name):
         with open(input_file_name, 'r', encoding='utf-8') as f:
             reader = csv.DictReader(f, delimiter='\t')
+            rows_read = 0
             for row in reader:
+                if rows_read == 0 and 'footnote' in row and row['footnote']:
+                    self.footnote = row['footnote']
                 self.add_hat(HatFamilyTile(all_tiles=self,
                     match_id=row['match_id'], match_edge=row['match_edge'],
                     start_edge=row['start_edge'], tile_id=row['tile_id'],
-                    color=row['color'], footnote=row['footnote']))
+                    color=row['color']))
+                rows_read += 1
 
     def get_pt(self, tile_id, edge):
         '''Get point at the end of the edge
@@ -462,7 +464,10 @@ class AllTiles:
                 f.write(tile.start_stroke_color + sep)
                 f.write(tile.done_fill_color + sep)
                 f.write(tile.done_stroke_color + sep)
-                f.write(tile.footnote + sep)
+                if idx == 0 and self.footnote:
+                    f.write(self.footnote + sep)
+                else:
+                    f.write(sep)
                 f.write(f'{img_width:.6f}{sep}')
                 f.write(f'{img_height:.6f}')
                 for pt in tile.user_points:
