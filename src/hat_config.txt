@@ -247,3 +247,5 @@ tile_id	color	start_edge	match_id	match_edge	footnote
 246	db	RN	48	RT	
 247	lb	LT	49	RP	
 248	g	LW	223	LN	
+249	lb	RT	110	RN	
+250	g	LN	230	RP	
