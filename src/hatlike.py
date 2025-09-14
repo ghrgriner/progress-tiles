@@ -35,7 +35,7 @@ not advisable.
 
 import math
 
-from hat_family import AllTiles, get_angle, Segment
+from hat_family import AllTiles, Segment
 
 from collections import namedtuple
 HatLike = namedtuple('HatLike',
@@ -51,19 +51,19 @@ examples_to_make = [
     HatLike(param1=10, param2=1, output_file='tile_10_1_tiling.txt',
             based_on='a Tile(10, 1) tiling'),
     HatLike(param1=4, param2=1, output_file='tile_4_1_tiling.txt',
-            based_on="a Tile(4, 1) tiling"),
+            based_on='a Tile(4, 1) tiling'),
     HatLike(param1=math.sqrt(3), param2=1, output_file='turtle_tiling.txt',
             based_on="a 'turtle' tiling"),
     HatLike(param1=1, param2=1, output_file='tile_1_1_tiling.txt',
-            based_on="a Tile(1, 1) tiling"),
+            based_on='a Tile(1, 1) tiling'),
     HatLike(param1=1, param2=math.sqrt(3), output_file='hat_tiling.txt',
-            based_on="the hat tiling", ref='Y'),
+            based_on='the hat tiling', ref='Y'),
     HatLike(param1=1, param2=4, output_file='tile_1_4_tiling.txt',
-            based_on="a Tile(1, 4) tiling"),
+            based_on='a Tile(1, 4) tiling'),
     HatLike(param1=1, param2=10, output_file='tile_1_10_tiling.txt',
-            based_on="a Tile(1, 10) tiling"),
+            based_on='a Tile(1, 10) tiling'),
     HatLike(param1=0, param2=1, output_file='chevron_tiling.txt',
-            based_on="a chevron tiling"),
+            based_on='a chevron tiling'),
            ]
 
 #-----------------------------------------------------------------------------
