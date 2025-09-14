@@ -2,7 +2,7 @@ tile_id	color	start_edge	match_id	match_edge	footnote
 1	lb	LP			Starting tile pattern based on BASED_ON_TILING in a <a href="https://cs.uwaterloo.ca/~csk/hat/examples/animation.gif">looping animated GIF</a> by David Smith, Joseph Samuel Myers, Craig S. Kaplan, and Chaim Goodman-Strauss, used under <a href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> / This is a recreation of the original rather than a screenshot, and the cropping, colors, and vertical orientation differ slightly from the original.
 2	g	RN	1	LH	
 3	w	RN	2	LH	
-4	w	RS	1	RS	
+4	w	RI	1	RO	
 5	lb	RH	4	RN	
 6	db	LW	5	RN	
 7	g	RH	2	LP	
@@ -32,11 +32,11 @@ tile_id	color	start_edge	match_id	match_edge	footnote
 31	g	LW	28	RT	
 32	lb	LS	31	LN	
 33	lb	LW	31	RT	
-34	g	RS	31	RS	
+34	g	RI	31	RO	
 35	w	LW	33	LN	
 36	lb	RH	35	RN	
 37	db	LW	36	RN	
-38	lb	RS	35	RS	
+38	lb	RI	35	RO	
 39	g	LN	36	LW	
 40	lb	LN	39	LW	
 41	db	RN	40	RT	
@@ -48,7 +48,7 @@ tile_id	color	start_edge	match_id	match_edge	footnote
 47	lb	LH	46	RN	
 48	lb	LN	46	LW	
 49	g	LW	46	RT	
-50	g	RS	49	RS	
+50	g	RI	49	RO	
 51	lb	LP	50	RH	
 52	w	LH	51	RN	
 53	w	RH	52	LP	
@@ -58,7 +58,7 @@ tile_id	color	start_edge	match_id	match_edge	footnote
 57	db	RS	56	RP	
 59	w	RW	56	RH	
 58	lb	LW	59	RT	
-60	lb	RS	59	RS	
+60	lb	RI	59	RO	
 61	w	LH	58	RN	
 62	lb	LW	61	RT	
 63	w	RH	61	LP	
@@ -76,10 +76,10 @@ tile_id	color	start_edge	match_id	match_edge	footnote
 75	w	LS	74	RT	
 76	w	LT	75	RP	
 77	lb	LW	76	RT	
-78	g	RS	76	RS	
+78	g	RI	76	RO	
 79	lb	LP	78	RH	
 80	db	RT	79	RT	
-81	lb	RS	75	RS	
+81	lb	RI	75	RO	
 82	w	RH	81	LP	
 83	lb	RH	82	RN	
 84	w	LW	83	LT	
@@ -95,7 +95,7 @@ tile_id	color	start_edge	match_id	match_edge	footnote
 94	lb	LN	93	LW	
 95	db	RN	94	RT	
 96	w	RT	94	LW	
-97	g	RS	96	RS	
+97	g	RI	96	RO	
 98	g	LS	97	LT	
 99	g	LT	98	RP	
 100	lb	LW	99	RT	
@@ -114,7 +114,7 @@ tile_id	color	start_edge	match_id	match_edge	footnote
 113	g	LT	112	LS	
 114	g	LT	113	RP	
 115	lb	LN	113	LW	
-116	g	RS	112	RS	
+116	g	RI	112	RO	
 117	g	LT	112	RP	
 118	db	RS	115	RP	
 119	lb	LW	114	RT	
@@ -130,17 +130,17 @@ tile_id	color	start_edge	match_id	match_edge	footnote
 129	lb	RP	128	RW	
 130	g	RT	129	LW	
 131	lb	LS	130	LN	
-132	w	RS	131	RS	
+132	w	RI	131	RO	
 133	lb	LT	132	LW	
 134	w	LN	133	RP	
 135	lb	RH	134	RW	
 136	g	RT	135	LW	
 137	w	LP	136	LH	
-138	lb	RS	137	RS	
+138	lb	RI	137	RO	
 139	w	RT	138	LW	
 140	w	RH	38	LP	
 141	lb	LS	139	LN	
-142	g	RS	139	RS	
+142	g	RI	139	RO	
 143	w	LN	142	LS	
 144	lb	LT	137	LW	
 145	db	LT	144	LN	
@@ -161,9 +161,9 @@ tile_id	color	start_edge	match_id	match_edge	footnote
 160	lb	RT	159	RT	
 161	g	RT	160	LW	
 162	lb	LS	161	LN	
-163	w	RS	162	RS	
+163	w	RI	162	RO	
 164	w	LN	161	LS	
-165	g	RS	164	RS	
+165	g	RI	164	RO	
 166	lb	LN	165	LW	
 167	g	RN	166	LH	
 168	g	LS	167	LT	
@@ -186,11 +186,11 @@ tile_id	color	start_edge	match_id	match_edge	footnote
 185	g	LS	181	LT	
 186	g	LS	185	LT	
 187	g	LW	186	RT	
-188	g	RS	187	RS	
+188	g	RI	187	RO	
 189	g	RP	188	LT	
 190	g	LT	176	LS	
 191	lb	LT	190	LW	
-192	lb	RS	175	RS	
+192	lb	RI	175	RO	
 193	db	RT	192	RT	
 194	g	LW	190	RT	
 195	lb	LW	194	RT	
@@ -209,7 +209,7 @@ tile_id	color	start_edge	match_id	match_edge	footnote
 208	lb	LT	204	LW	
 209	lb	RT	207	RT	
 210	g	RT	209	LW	
-211	w	RS	210	RS	
+211	w	RI	210	RO	
 212	lb	LS	210	LN	
 213	w	RP	184	LT	
 214	lb	LT	213	LW	
@@ -234,21 +234,21 @@ tile_id	color	start_edge	match_id	match_edge	footnote
 233	w	RT	211	LW	
 234	lb	RT	232	RN	
 235	lb	LH	209	RN	
-236	w	RS	209	RS	
+236	w	RI	209	RO	
 237	w	RT	199	LW	
-239	g	RS	194	RS	
+239	g	RI	194	RO	
 238	lb	LH	194	RN	
 240	lb	LH	172	RN	
-241	w	RS	172	RS	
+241	w	RI	172	RO	
 242	lb	LN	171	LW	
 243	g	RH	242	LP	
 244	lb	LH	204	LP	
-245	g	RS	43	RS	
+245	g	RI	43	RO	
 246	db	RN	48	RT	
 247	lb	LT	49	RP	
 248	g	LW	223	LN	
 249	lb	RT	110	RN	
 250	g	LN	230	RP	
-251	g	RS	42	RS	left border
+251	g	RI	42	RO	left border
 252	g	LS	237	LT	bottom border
 253	lb	RT	226	RN	right border

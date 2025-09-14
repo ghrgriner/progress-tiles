@@ -59,19 +59,20 @@ Segment = namedtuple('Segment', ['start', 'stop'])
 # This is how you draw the hat. First move d, and then turn.
 # Note 'left' is from point of view of person wearing the shirt.
 LEFT_HAT_MOVES = [
-  Move(turn='L', angle=60, d='HS'), # p1
-  Move(turn='L', angle=90, d='HS'), # p2
-  Move(turn='L', angle=60, d='HH'), # p3
-  Move(turn='R', angle=90, d='HH'), # p4
-  Move(turn='L', angle=60, d='HS'), # p5
-  Move(turn='L', angle=60, d='FS'), # p6
-  Move(turn='L', angle=90, d='HS'), # p7
-  Move(turn='R', angle=60, d='HH'), # p8
-  Move(turn='L', angle=90, d='HH'), # p9
-  Move(turn='R', angle=60, d='HS'), # p10
-  Move(turn='L', angle=90, d='HS'), # p11
-  Move(turn='L', angle=60, d='HH'), # p12
-  Move(turn='R', angle=90, d='HH'), # p13
+  Move(turn='L', angle=60, d='HS'),
+  Move(turn='L', angle=90, d='HS'),
+  Move(turn='L', angle=60, d='HH'),
+  Move(turn='R', angle=90, d='HH'),
+  Move(turn='L', angle=60, d='HS'),
+  Move(turn='L', angle=0, d='HS'),
+  Move(turn='L', angle=60, d='HS'),
+  Move(turn='L', angle=90, d='HS'),
+  Move(turn='R', angle=60, d='HH'),
+  Move(turn='L', angle=90, d='HH'),
+  Move(turn='R', angle=60, d='HS'),
+  Move(turn='L', angle=90, d='HS'),
+  Move(turn='L', angle=60, d='HH'),
+  Move(turn='R', angle=90, d='HH'),
 ]
 
 # To draw the tile with other chirality, you start at 'right armpit' and
@@ -84,9 +85,9 @@ RIGHT_HAT_MOVES = [ Move(turn=OTHER_DIR[val.turn], angle=val.angle, d=val.d)
 # The nomenclature used is non-standard, but it seems a lot easier if I
 # visualize this as an untucked shirt than a hat, the edges are: left
 # (arm)pit, left (arm) hole, left shoulder, left neck, right neck, right
-# shoulder, right hole, right pit, right torso, right waist, down waist,
-# left waist, left torso.
-LEFT_EDGES = ['LP','LH','LS','LN','RN','RS',
+# inner shoulder, right outer shoulter, right hole, right pit, right torso,
+# right waist, down waist, left waist, left torso.
+LEFT_EDGES = ['LP','LH','LS','LN','RN','RI','RO',
               'RH','RP','RT','RW','DW','LW','LT']
 
 # If first letter in item is L, make it R and vice-versa, because when
@@ -245,14 +246,14 @@ class HatFamilyTile():
         prev_moves = []
         while all_tiles.dists[curr_move.d] == 0:
             prev_moves.append(curr_move)
-            curr_pos = (curr_pos - 1) % 13
+            curr_pos = (curr_pos - 1) % 14
             curr_move = MOVES[match_tile.chirality][curr_pos]
         prev_moves.append(curr_move)
 
         match_end = match_tile.user_points[match_pos]
-        match_start = match_tile.user_points[(match_pos - 1) % 13]
+        match_start = match_tile.user_points[(match_pos - 1) % 14]
         # fnz_idx : first non-zero move index
-        fnz_idx = (match_pos - len(prev_moves)) % 13
+        fnz_idx = (match_pos - len(prev_moves)) % 14
         match_fnz = match_tile.user_points[fnz_idx]
 
         if self.chirality == match_tile.chirality:
@@ -366,9 +367,8 @@ class AllTiles:
         self.top_y = None
         self.bottom_y = None
 
-        self.dists = {'FS': scaling * 2 * tile_param1,
-                 'HS': scaling * tile_param1,
-                 'HH': scaling * tile_param2}
+        self.dists = {'HS': scaling * tile_param1,
+                      'HH': scaling * tile_param2}
 
     def __str__(self):
         return f'tiles={self.tiles}'

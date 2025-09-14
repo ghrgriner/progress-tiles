@@ -54,7 +54,8 @@ TILE11_EDGE_RENAMER = {
   'RH': 'LS',  # right head
   'RN': 'LN',  # right neck
   'RS': 'RN',  # right shoulder
-  'BK': 'RS',  # back
+  'RU': 'RI',  # right upper-back
+  'RL': 'RO',  # right lower-back
   'RT': 'RH',  # right torso
   'RW': 'RP',  # right waist
   'RD': 'RT',  # right down
