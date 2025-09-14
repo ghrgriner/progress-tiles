@@ -103,4 +103,4 @@ for example in examples_to_make:
               top_y=all_tiles.get_pt(tile_id='220', edge='LN')[1]
                           )
 
-    all_tiles2.write_points_to_file(example.output_file)
+    all_tiles2.write_points_to_file('tilings/hat/' + example.output_file)

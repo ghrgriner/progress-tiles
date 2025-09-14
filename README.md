@@ -30,7 +30,7 @@ Currently, the program blocks until a writer connects to the FIFO.
 # Configuration
 
 The coordinates of the (polygonal) tiles to display are read from
-a text file named 'tiling.txt'. The file should have the variables:
+a text file named 'tilings/hat/hat_tiling.txt'. The file should have the variables:
 - px_0, py_0, ..., px_n, py_n - Coordinates of the tile. Tiles can
   have different number of vertices, with pairs left blank for tiles
   with vertices fewer than the maximum. The value (0,0) will be
@@ -75,17 +75,17 @@ in `show_progress.py` to the appropriate `*_tiling.txt` file.
    defines about 250 tiles. The exact number displayed depends on the cropping,
    but the minimal cropping appears to yield 166 tiles entirely shown with
    additional partial tiles on the image border. We have also provided
-   code (`hatlike.py`) and coordinates (`turtle_tiling.txt`,
-   `tile_10_1_tiling.txt`, etc.) for eight other tiles in the hat-like family
+   code (`hatlike.py`) and coordinates (`tilings/hat/turtle_tiling.txt`,
+   `tilings/hat/tile_10_1_tiling.txt`, etc.) for eight other tiles in the hat-like family
    described in [1].
 2. A larger example using the 'hat' tiles. Again, see `LICENSE.txt` for
    the license and attribution information. This example defines 656 tiles.
    The exact number displayed depends on the cropping, but the maximum is
    probably about 550 tiles entirely shown. To run this example, set
-   `TILE_FILE_NAME=hat2_tiling.txt` in `show_progress.py` and rerun.
+   `TILE_FILE_NAME=tilings/hat/hat2_tiling.txt` in `show_progress.py` and rerun.
 3. An example where tiles in a honeycomb pattern change from shades of red
    to shades of green. This example consist of 90 tiles. To run this example,
-   set `TILE_FILE_NAME=honeycomb_tiling.txt` in `show_progress.py` and rerun.
+   set `TILE_FILE_NAME=tilings/general/honeycomb_tiling.txt` in `show_progress.py` and rerun.
 
 Screenshots of the examples can be found [on the wiki](https://github.com/ghrgriner/progress-tiles/wiki/Examples), although for point (1), we currently only 
 have screenshots for the 'hat' tile.
@@ -93,9 +93,11 @@ have screenshots for the 'hat' tile.
 # Running the Program
 
 Run the program with `python3 show_progress.py`. It's not necessary to run
-the other python files, as these make the `*_tiling.txt` input files, which
-are already provided.
+the other python files, as these make the input files in the `tilings`
+subdirectory, which are already provided.
 
 # References
 
 [1] Smith D, Myers JS, Kaplan CS, Goodman-Strauss C. An aperiodic monotile. Combinatorial Theory, 4(1):1-91.
+
+[2] Smith D, Myers JS, Kaplan CS, Goodman-Strauss C. A chiral aperiodic monotile. Combinatorial Theory, 4(2):1-25.

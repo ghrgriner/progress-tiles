@@ -50,5 +50,5 @@ all_tiles.set_crop_values(
               top_y=all_tiles.get_pt(tile_id='153', edge='LN')[1]
                          )
 
-all_tiles.write_points_to_file('hat2_tiling.txt')
+all_tiles.write_points_to_file('tilings/hat/hat2_tiling.txt')
 
