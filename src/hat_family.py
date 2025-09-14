@@ -177,7 +177,7 @@ class HatFamilyTile():
         string.
     '''
     def __init__(self, all_tiles, tile_id, start_edge, color, match_edge=None,
-                 match_id=None, footnote=''):
+                 match_id=None, footnote='', tile_param1=None, tile_param2=None):
         self.chirality = all_tiles.chiralities[color]
         self.tile_id = tile_id
         self.color = color
@@ -186,6 +186,10 @@ class HatFamilyTile():
         self.match_edge = match_edge
         self.match_id = match_id
         self.footnote = footnote
+        tp1 = tile_param1 if tile_param1 else all_tiles.tile_param1
+        tp2 = tile_param2 if tile_param2 else all_tiles.tile_param2
+        self.dists = {'HS': tp1 * all_tiles.scaling,
+                      'HH': tp2 * all_tiles.scaling}
         self.set_user_points(all_tiles)
         self.set_colors(all_tiles.colors)
 
@@ -244,7 +248,7 @@ class HatFamilyTile():
         # different directions probably added more complexity than it was
         # worth.
         prev_moves = []
-        while all_tiles.dists[curr_move.d] == 0:
+        while self.dists[curr_move.d] == 0:
             prev_moves.append(curr_move)
             curr_pos = (curr_pos - 1) % 14
             curr_move = MOVES[match_tile.chirality][curr_pos]
@@ -289,9 +293,9 @@ class HatFamilyTile():
                 angle_const = 1
             curr_pt = (
                 round(curr_pt[0]
-                      + all_tiles.dists[move.d] * math.cos(curr_angle),6),
+                      + self.dists[move.d] * math.cos(curr_angle),6),
                 round(curr_pt[1]
-                      + all_tiles.dists[move.d] * math.sin(curr_angle),6)
+                      + self.dists[move.d] * math.sin(curr_angle),6)
                       )
             # Turn after moving
             curr_angle = curr_angle + angle_const * 2*math.pi * move.angle/360
@@ -366,9 +370,6 @@ class AllTiles:
         self.right_x = None
         self.top_y = None
         self.bottom_y = None
-
-        self.dists = {'HS': scaling * tile_param1,
-                      'HH': scaling * tile_param2}
 
     def __str__(self):
         return f'tiles={self.tiles}'
