@@ -64,10 +64,10 @@ The following environment variables are used by the program:
 
 # Example
 
-Three classes of example input text files are provided.
+Four classes of example input text files are provided.
 
 The different examples can be run by setting the `TILE_FILE_NAME` parameter
-in `show_progress.py` to the appropriate `*_tiling.txt` file.
+in `show_progress.py` to the appropriate `*_tiling.txt` file and rerunning.
 
 1. An example using the Smith-Myers-Kaplan-Goodman-Strauss 'hat' tiles [1],
    where tiles change from opaque to transparent. See `LICENSE.txt` for
@@ -81,14 +81,16 @@ in `show_progress.py` to the appropriate `*_tiling.txt` file.
 2. A larger example using the 'hat' tiles. Again, see `LICENSE.txt` for
    the license and attribution information. This example defines 656 tiles.
    The exact number displayed depends on the cropping, but the maximum is
-   probably about 550 tiles entirely shown. To run this example, set
-   `TILE_FILE_NAME=tilings/hat/hat2_tiling.txt` in `show_progress.py` and rerun.
+   probably about 550 tiles entirely shown.
+   Set `TILE_FILE_NAME=tilings/hat/hat2_tiling.txt` for this example.
 3. An example where tiles in a honeycomb pattern change from shades of red
-   to shades of green. This example consist of 90 tiles. To run this example,
-   set `TILE_FILE_NAME=tilings/general/honeycomb_tiling.txt` in `show_progress.py` and rerun.
+   to shades of green.
+   Set `TILE_FILE_NAME=tilings/general/honeycomb_tiling.txt` for this example.
+4. An example using Smith-Myers-Kaplan-Goodman-Strauss monochiral Tile(1,1) tiles [2].
+   This image could be updated to replace the polygons with 'spectre' tiles.
+   Set `TILE_FILE_NAME=tilings/spectre/monochiral_tile_1_1_tiling.txt` for this example.
 
-Screenshots of the examples can be found [on the wiki](https://github.com/ghrgriner/progress-tiles/wiki/Examples), although for point (1), we currently only 
-have screenshots for the 'hat' tile.
+Selected screenshots of the examples can be found [on the wiki](https://github.com/ghrgriner/progress-tiles/wiki/Examples).
 
 # Running the Program
 
