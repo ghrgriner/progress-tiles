@@ -204,19 +204,67 @@ class HatFamilyTile():
         # when we first drew it, and the previous point in `user_points`
         # is the start.
         match_pos = EDGES[match_tile.chirality].index(self.match_edge)
+        curr_pos = match_pos
+        curr_move = MOVES[match_tile.chirality][curr_pos]
+
+        # General idea: we determine the starting point and angle from the
+        # matching segment on the matching tile, whose coordinates have
+        # already been found. The complexity arises for the degenerate cases,
+        # i.e., if one of the length parameters for the tile is 0. In this
+        # case, we might have defined a match on an edge of 0 length, and we
+        # cannot determine the angle by inspecting the coordinates of the
+        # endpoints.
+        #
+        # We handle this as follows:
+        # Get all previous moves until (and including) the first move where the
+        # distance traveled was not zero. We can then calculate the angle for
+        # this non-degenerate edge from the co-ordinates. If there were moves
+        # where the distance moved was 0, we can calculate the angle the path
+        # was facing after 'drawing' the 'edge' of interest (match_pos) by
+        # adding the angles turned after the moves (but not after the final
+        # move at 'curr_pos', as this final turn gives the angle of the next
+        # segment, not the segment of interest).
+        #
+        # To understand why chirality must be considered:
+        # The array of points (`user_points`) is labeled with edges (`EDGES`
+        # list) and the point is the location after the edge is drawn. For
+        # convenience (?) we define tiles of one chirality as being drawn
+        # clockwise and the other as being drawn counter-clockwise. We need to
+        #  start drawing `self` in the opposite direction the segment for
+        # `match` was drawn.
+        #
+        # If the tiles are the same chirality, then in both the self and match
+        # tile, the point at the end of the edge is the point in `user_points`
+        # identified by the edge.  If the chiralities differ, then since one
+        # chirality was drawn counterclockwise, we cannot use the same index,
+        # and we must use one less (`match_start`).
+        #
+        # In retrospect, drawing the tiles with different chiralities in
+        # different directions probably added more complexity than it was
+        # worth.
+        prev_moves = []
+        while all_tiles.dists[curr_move.d] == 0:
+            prev_moves.append(curr_move)
+            curr_pos = (curr_pos - 1) % 13
+            curr_move = MOVES[match_tile.chirality][curr_pos]
+        prev_moves.append(curr_move)
+
         match_end = match_tile.user_points[match_pos]
         match_start = match_tile.user_points[(match_pos - 1) % 13]
+        # fnz_idx : first non-zero move index
+        fnz_idx = (match_pos - len(prev_moves)) % 13
+        match_fnz = match_tile.user_points[fnz_idx]
+
         if self.chirality == match_tile.chirality:
-            # We always need to draw the starting edge in the opposite
-            # direction it was first drawn. However, if the chirality
-            # of the two tiles differs
-            # then we can start at the previous start (since one chirality
-            # is drawn counter-clockwise and the other clockwise).
             curr_pt = match_end
-            curr_angle = get_angle(start=match_end, end=match_start)
+            curr_angle = get_angle(start=match_end, end=match_fnz)
         else:
             curr_pt = match_start
-            curr_angle = get_angle(start=match_start, end=match_end)
+            curr_angle = get_angle(start=match_fnz, end=match_end)
+
+        for move in prev_moves[1:]:
+            move_dir = -1 if move.turn == 'L' else 1
+            curr_angle += move_dir*2*math.pi*move.angle/360
         return curr_pt, curr_angle
 
     def set_user_points(self, all_tiles):

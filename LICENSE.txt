@@ -1,11 +1,11 @@
 ---------------------------------------
 License for Python code in this package
 ---------------------------------------
-The code for creating the coordinates for 'hat' tiles (src/hat.py,
-src/hat_config.txt, src/hat_tiling.txt, and similary for files with
-'hat2' in the name) is provided under the MIT license. The same is
-true for the honeycomb example (src/honeycomb.py,
-src/honeycomb_tiling.txt). 
+The code for creating the coordinates for the example tilings
+(src/hatlike.py, src/hat2.py, src/hat_config.txt, src/hat2_config.txt,
+src/honeycomb.py) and the generated coordinate files ending in _tiling.txt
+are provided under the MIT license. However, see the next section for
+the license and attribution requirement for the generated images.
 
 The other *.py file (src/show_progress.py) is licensed under the
 GNU General Public License v3. See LICENSE_GPL_v3_for_other_py_files.txt
@@ -14,9 +14,11 @@ in the src/ directory for the license.
 -------------------------------------------------------------
 License and attribution information for hat tiling
 -------------------------------------------------------------
-Images based on the 'hat' tiling [1] are made available under
-the CC BY-SA 4.0 license by the authors, and we release
-our modifications under the same license.
+Images based on the 'hat' tiling [1] or tiles in the same family
+are made available under the CC BY-SA 4.0 license by the authors,
+and we release our modifications under the same license. (We use
+the term hat-family to refer to the continuum of tiles described
+by the authors in their manuscript, e.g., in their Figure 2.3.)
 
 [1] Smith D, Myers JS, Kaplan CS, Goodman-Strauss C. An aperiodic monotile. Combinatorial Theory, 4(1):1-91.
 
@@ -24,12 +26,13 @@ Two images in particular are used.
 
 The source images for src/hatlike.py which generates coordinates in
 hat_tiling.txt, tile_10_1_tiling.txt, tile_4_1_tiling.txt, turtle_tiling.txt,
-tile_1_1_tiling.txt, tile_1_4_tiling.txt, and tile_1_10_tiling.txt
+tile_1_1_tiling.txt, tile_1_4_tiling.txt, tile_1_10_tiling.txt,
+comet_tiling.txt, and chevron_tiling.txt
 are similar to screenshots of a looping animation by the
-authors that loops between the chevron, comet, and other continuum
-of tiles. This image is then slightly modified for use. The colors
-are similar but not identical and the vertical alignment is similar but
-probably not identical to the original image.
+authors that loops along the continuum of tiles between the chevron and
+comet described in the authors' manuscript. This image is then slightly
+modified for use. The colors are similar but not identical and the vertical
+alignment is similar but probably not identical to the original image.
 
 The second image used by src/hat2.py which generates coordinates in
 src/hat2_tiling.txt is a recreation of patch647.png. Here, the color
@@ -37,8 +40,10 @@ scheme is changed to be similar to the first set of images.
 
 This program can also be configured to modify the images in other
 ways, such as changing the fill color, border color, or transparency
-of each tile. The window that displays the image may crop the image
-depending on the window dimensions selected by the user.
+of each tile.
+
+For both sets of images, the window that displays the image may crop the
+image depending on the window dimensions selected by the user.
 
 The webpage with the images is: https://cs.uwaterloo.ca/~csk/hat/. 
 

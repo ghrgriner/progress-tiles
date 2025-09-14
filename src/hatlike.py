@@ -23,7 +23,7 @@
 '''Create tiling using Smith-Myers-Kaplan-Goodman-Strauss hat-family tiles.
 
 The configuration of the tiles matches that in the GIF animation on the
-page https://cs.uwaterloo.ca/~csk/hat/. See LICENSE.txt for complete
+page https://cs.uwaterloo.ca/~csk/hat/. See ../LICENSE.txt for complete
 attribution details.
 
 The tile generation isn't particularly elegant here. We put the first tile
@@ -46,6 +46,8 @@ HatLike = namedtuple('HatLike',
 # Parameters
 #-----------------------------------------------------------------------------
 examples_to_make = [
+    HatLike(param1=1, param2=0, output_file='comet_tiling.txt',
+            based_on="a 'comet' tiling"),
     HatLike(param1=10, param2=1, output_file='tile_10_1_tiling.txt',
             based_on='a Tile(10, 1) tiling'),
     HatLike(param1=4, param2=1, output_file='tile_4_1_tiling.txt',
@@ -60,6 +62,8 @@ examples_to_make = [
             based_on="a Tile(1, 4) tiling"),
     HatLike(param1=1, param2=10, output_file='tile_1_10_tiling.txt',
             based_on="a Tile(1, 10) tiling"),
+    HatLike(param1=0, param2=1, output_file='chevron_tiling.txt',
+            based_on="a chevron tiling"),
            ]
 
 #-----------------------------------------------------------------------------

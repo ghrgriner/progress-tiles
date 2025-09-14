@@ -23,8 +23,9 @@
 '''Create larger tiling using Smith-Myers-Kaplan-Goodman-Strauss hat tiles.
 
 The configuration of the tiles matches that in image 'patch647.png' on the
-page https://cs.uwaterloo.ca/~csk/hat/. See the footnote on the first
-(non-header) row of the input file for complete attribution details.
+page https://cs.uwaterloo.ca/~csk/hat/. See ../LICENSE.txt and the footnote
+on the first (non-header) row of the input file for complete attribution
+details.
 '''
 
 import math
