@@ -182,7 +182,7 @@ tile_id	color	start_edge	match_id	match_edge	footnote
 182	w	LW	181	LN	
 183	w	RN	181	LT	
 184	w	RH	160	LS	
-185	w	LN	184	RD	
+185	og	LN	184	RD	
 186	w	LS	183	LT	
 187	w	LN	182	LH	
 188	w	RN	187	LT	
