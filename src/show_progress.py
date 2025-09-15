@@ -268,7 +268,8 @@ class Tile():
             self.curve_to(cr, prev_pt, pt, vertex_num=idx)
             prev_pt = pt
             #cr.line_to(pt[0], pt[1])
-        self.curve_to(cr, prev_pt, self.device_points[0], vertex_num=len(self.device_points)-1)
+        self.curve_to(cr, prev_pt, self.device_points[0],
+                      vertex_num=len(self.device_points)-1)
         cr.close_path()
 
         if _TEST_WITH_SOLID_COLORS:
@@ -605,7 +606,8 @@ class MainWindow(Gtk.ApplicationWindow):
                 if read_rows == 0 and 'footnote' in row:
                     footnote_text = row['footnote']
                 if read_rows == 0 and 'curve_spectre_edges' in row:
-                    self.dw.curve_spectre_edges = str_to_bool[row['curve_spectre_edges']]
+                    self.dw.curve_spectre_edges = str_to_bool[
+                                              row['curve_spectre_edges']]
                 elif read_rows == 0:
                     self.dw.curve_spectre_edges = False
                 if read_rows == 0:
@@ -657,7 +659,8 @@ class MyApp(Adw.Application):
             try:
                 self.fifo_fd = os.open(fifo_name, os.O_RDONLY | os.O_NONBLOCK)
             except OSError as e:
-                print(f'Error opening {fifo_name}. Will not listen on FIFO.')
+                print(f'Error {e} opening {fifo_name}. '
+                       'Will not listen on FIFO.')
                 return
             fifo_channel = GLib.IOChannel.unix_new(self.fifo_fd)
         else:
