@@ -8,6 +8,13 @@ the tiles shown based on the percentage of work done, e.g., by
 changing color or transparency of some percentage of the tiles
 from a 'start' to a 'done' state.
 
+A [large number of examples](#Examples) are provided using tile patterns of
+Smith-Myers-Kaplan-Goodman-Strauss hat tiles [1], spectre tiles [2],
+and related tiles described in the same publications.
+These coordinate files and programs for these examples
+[may also be of interest](https://github.com/ghrgriner/progress-tiles/wiki/Discussion)
+to users not interested in the 'progress bar' application.
+.
 The order the tiles are toggled are random, except the border
 tiles are toggled first. The `BORDER_FIRST` parameter in `show_progress.py`
 can be changed to disable this.
@@ -16,16 +23,13 @@ The program is written using GTK4 with Python bindings, so GTK
 and the Python libraries will need to be installed to be run.
 It was tested on Linux. Since FIFOs are implemented differently
 on Windows, it probably needs modification to run on that platform.
+At the very least, `show_progress.py` will block on non-POSIX
+platforms until the writer connects to the FIFO.
 
 The program was originally written for use with a custom add-on
 for the (desktop version of) Anki flashcard software that
 sends the messages as flashcards are reviewed. The code for this
 add-on is [available for download on Ankiweb](https://ankiweb.net/shared/info/1300160579).
-
-Additional technical details are in the docstring headers of the
-programs.
-
-Currently, the program blocks until a writer connects to the FIFO.
 
 # Configuration
 
@@ -67,7 +71,7 @@ The following environment variables are used by the program:
   provided in the input text file. If not set, defaults to the 'done'
   fill color.
 
-# Example
+# Examples
 
 Four classes of example input text files are provided.
 
