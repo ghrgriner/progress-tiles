@@ -435,7 +435,6 @@ class TileDrawingArea(Gtk.DrawingArea):
     def on_draw(self, area, ctx, w, h, data):  # pylint: disable=unused-argument
         global _COLOR
         _COLOR = 0
-        # TODO: could be more efficient
         for tile in self.tiles:
             if tile.change_num >= self.num:
                 tile.draw(ctx)
@@ -627,6 +626,7 @@ class MyApp(Adw.Application):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.connect('activate', self.on_activate)
+        self.fifo_fd = None
 
     def on_activate(self, app_):
         self.win = MainWindow(application=app_)
@@ -640,6 +640,10 @@ class MyApp(Adw.Application):
             widget.dw.complete_resize(pending_dims[0], pending_dims[1])
             widget.dw.pending_dimensions = None
 
+    def __del__(self):
+        if self.fifo_fd is not None:
+            self.fifo_fd.close()
+
     def start_fifo_watch(self):
         try:
             fifo_name = os.environ['SHOW_PROGRESS_FIFO']
@@ -647,8 +651,20 @@ class MyApp(Adw.Application):
             print('No `SHOW_PROGRESS_FIFO` environment variable specified. '
                   'Will not listen on FIFO.')
             return False
-        # TODO: open in separate thread, as it blocks the main thread
-        fifo_channel = GLib.IOChannel.new_file(fifo_name, 'r')
+
+        if os.name == 'posix':
+            # Need to open the FIFO non-blocking, or else if will hang
+            try:
+                self.fifo_fd = os.open(fifo_name, os.O_RDONLY | os.O_NONBLOCK)
+            except OSError as e:
+                print(f'Error opening {fifo_name}. Will not listen on FIFO.')
+                return
+            fifo_channel = GLib.IOChannel.unix_new(self.fifo_fd)
+        else:
+            # This (probably) works on non-UNIX systems but the program
+            # blocks until the writer connects
+            fifo_channel = GLib.IOChannel.new_file(fifo_name, 'r')
+
         GLib.io_add_watch(fifo_channel, GLib.IO_IN,
             self.on_fifo_data, priority=GLib.PRIORITY_DEFAULT)
         return True
