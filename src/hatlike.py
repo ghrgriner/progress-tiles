@@ -66,8 +66,6 @@ examples_to_make = [
             based_on='a chevron tiling'),
            ]
 
-# TODO: both comet and chevron have margin visible in top for for 1 tile
-
 #-----------------------------------------------------------------------------
 # Main Entry Point
 #-----------------------------------------------------------------------------
