@@ -2,7 +2,8 @@
 License for Python code in this package
 ---------------------------------------
 The code for creating the coordinates for the example tilings
-(src/hatlike.py, src/hat2.py, src/spectre.py, src/honeycomb.py)
+(src/hatlike.py, src/hat2.py, src/spectre.py, src/turtles_and_hats.py,
+src/honeycomb.py)
 are provided under the MIT license. However, see the next section for
 the license and attribution requirement for the generated images.
 
@@ -41,6 +42,8 @@ The third image (patch.png) is the source for src/spectre.py which
 generates coordinates in src/tilings/spectre/spectre_tiling.txt that recreates
 the original with slight modifications. The color scheme is changed from the original.
 The program can be configured to draw the tiles with straight edges or curved.
+The same image is used as the source for src/turtles_and_hats.py which
+generates coordinates in src/tilings/spectre/turtles_in_hats.txt and hats_in_turtles.txt.
 
 This program can also be configured to modify the images in other
 ways, such as changing the fill color, border color, or transparency

@@ -96,6 +96,13 @@ in `show_progress.py` to the appropriate `*_tiling.txt` file and rerunning.
    inward and outward curves to create a tile that only admits monochiral tilings.
    Set `TILE_FILE_NAME=tilings/spectre/fiat_spectre_tiling.txt` and
    `TILE_FILE_NAME=tilings/spectre/curved_spectre_tiling.txt` for these examples.
+   Two more incomplete variants are also provided.
+   Setting `TILE_FILE_NAME=tilings/spectre/turtles_in_hats_tiling.txt` generates an image
+   where the center Tile(1,1) tiles are replaced by 'turtle' tiles surrounded by 'hat' tiles.
+   Setting `TILE_FILE_NAME=tilings/spectre/hats_in_turtles_tiling.txt` generates an image
+   where the center Tile(1,1) tiles are replaced by 'hat' tiles surrounded by 'turtles' tiles.
+   We say the examples are incomplete as no cropping of the image is done, and the image
+   is a rotated approximate square.
 
 Selected screenshots of the examples can be found [on the wiki](https://github.com/ghrgriner/progress-tiles/wiki/Examples).
 
