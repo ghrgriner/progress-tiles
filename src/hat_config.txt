@@ -252,3 +252,5 @@ tile_id	color	start_edge	match_id	match_edge	footnote
 251	g	RI	42	RO	left border
 252	g	LS	237	LT	bottom border
 253	lb	RT	226	RN	right border
+254	g	LW	221	LN	off upper border, but visible for comet and chevron
+255	g	RT	219	LW	off upper border, but visible for comet
