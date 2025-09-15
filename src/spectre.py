@@ -114,5 +114,5 @@ all_tiles.set_crop_values(
                                       edge=TILE11_EDGE_RENAMER['RS'])[1],
                          )
 
-all_tiles.write_points_to_file('tilings/spectre/' +
-                               'monochiral_tile_1_1_tiling.txt')
+all_tiles.write_points_to_file('tilings/spectre/fiat_spectre_tiling.txt')
+                               
