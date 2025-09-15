@@ -66,7 +66,7 @@ tile_id	color	start_edge	match_id	match_edge	footnote
 65	w	LW	63	RS	
 66	w	RW	64	RT	
 67	w	RL	66	RU	
-68	w	RH	67	RD	
+68	w	LT	67	RD	
 69	w	RT	67	RS	
 70	w	LT	69	LS	
 71	w	RN	69	LT	
