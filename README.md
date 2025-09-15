@@ -46,6 +46,11 @@ a text file named 'tilings/hat/hat_tiling.txt'. The file should have the variabl
   for both the 'start' and 'done' states.
 - footnote (optional) - if the column exists, then the value from the
   first row (if it exists) will be used as a footnote to the image.
+- curve_spectre_edges (optional) - if True, then `show_progress.py` will
+  add alternating inward and outward curves to the polygon edges.
+  This should only be set to `True` if the tiling is an aperiodic spectre
+  tiling. If the column exists, then only the value from the first row
+  (if it exists) will be used as a footnote to the image.
 
 The following environment variables are used by the program:
 
@@ -87,8 +92,10 @@ in `show_progress.py` to the appropriate `*_tiling.txt` file and rerunning.
    to shades of green.
    Set `TILE_FILE_NAME=tilings/general/honeycomb_tiling.txt` for this example.
 4. An example using Smith-Myers-Kaplan-Goodman-Strauss monochiral Tile(1,1) tiles [2].
-   This image could be updated to replace the polygons with 'spectre' tiles.
-   Set `TILE_FILE_NAME=tilings/spectre/monochiral_tile_1_1_tiling.txt` for this example.
+   A variant is also shown where the straight polygon edges are replaced with alternating
+   inward and outward curves to create a tile that only admits monochiral tilings.
+   Set `TILE_FILE_NAME=tilings/spectre/fiat_spectre_tiling.txt` and
+   `TILE_FILE_NAME=tilings/spectre/curved_spectre_tiling.txt` for these examples.
 
 Selected screenshots of the examples can be found [on the wiki](https://github.com/ghrgriner/progress-tiles/wiki/Examples).
 
