@@ -358,7 +358,7 @@ class AllTiles:
         Footnote to pass through to the output.
     '''
     def __init__(self, tile_param1, tile_param2, chiralities, colors,
-                 first_tile_angle=0, scaling=1):
+                 pass_through={}, first_tile_angle=0, scaling=1):
         self.tiles = {}
         self.tile_param1 = tile_param1
         self.tile_param2 = tile_param2
@@ -366,6 +366,7 @@ class AllTiles:
         self.colors = colors
         self.first_tile_angle = first_tile_angle
         self.scaling = scaling
+        self.pass_through = pass_through
         self.left_x = None
         self.right_x = None
         self.top_y = None
@@ -500,12 +501,16 @@ class AllTiles:
         self.set_origin(left, top)
         img_width = right - left
         img_height = bottom - top
+        pass_through_hdr = ''
+        for key in self.pass_through.keys():
+            pass_through_hdr += key + '\t'
         with open(file_name, 'w', encoding='utf-8') as f:
             max_pts = max(
                 [len(tile.user_points) for tile in self.tiles.values()]
                          )
             headers = ('seq_id\tstart_fill_color\tstart_stroke_color\t'
                        'done_fill_color\tdone_stroke_color\tfootnote\t'
+                       f'{pass_through_hdr}'
                        'img_width\timg_height\t'
                        f'{pt_headers(max_pts)}')
             f.write(headers)
@@ -521,8 +526,16 @@ class AllTiles:
                     f.write(self.footnote + sep)
                 else:
                     f.write(sep)
+
+                for val in self.pass_through.values():
+                    if idx == 0:
+                        f.write(val + sep)
+                    else:
+                        f.write(sep)
+
                 f.write(f'{img_width:.6f}{sep}')
                 f.write(f'{img_height:.6f}')
+
                 for pt in tile.user_points:
                     f.write(f'{sep}{pt[0]:.6f}{sep}{pt[1]:.6f}')
                 for _ in range(max_pts - len(tile.user_points)):

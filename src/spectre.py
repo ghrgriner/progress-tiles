@@ -26,7 +26,7 @@ This generates a file with the vertices for the spectre tilings. The same
 vertices can, for example, be used to draw Tile(1,1) tiles of a single
 chirality.
 
-The configuration of the tiles matches that in 
+The configuration of the tiles matches that in
 https://cs.uwaterloo.ca/~csk/spectre/examples/patch.png. See ../LICENSE.txt
 for complete license and attribution details.
 
@@ -95,15 +95,30 @@ class AllTile11Tiles(AllTiles):
 #-----------------------------------------------------------------------------
 chiralities = {'og': 'L', 'w': 'L'}
 colors = {'og': '#8080ff', 'w': '#d0d0d0'}
-all_tiles = AllTile11Tiles(tile_param1=1, tile_param2=1,
-              chiralities=chiralities, colors=colors,
-              first_tile_angle=2*math.pi*(90/360))
-all_tiles.add_all_tiles(input_file_name = 'spectre_config.txt')
 
-all_tiles.footnote = all_tiles.footnote.replace('BASED_ON_TILING',
+for curve_spectre_edges in [True, False]:
+    if curve_spectre_edges:
+        pass_through= {'curve_spectre_edges': str(curve_spectre_edges)}
+    else:
+        pass_through = {}
+
+    all_tiles = AllTile11Tiles(tile_param1=1, tile_param2=1,
+              chiralities=chiralities, colors=colors,
+              pass_through=pass_through, first_tile_angle=2*math.pi*(90/360))
+    all_tiles.add_all_tiles(input_file_name = 'spectre_config.txt')
+
+    all_tiles.footnote = all_tiles.footnote.replace('BASED_ON_TILING',
             'an aperiodic Tile(1,1) tiling')
 
-all_tiles.set_crop_values(
+    if curve_spectre_edges:
+        all_tiles.footnote += (' Polygon edges have been replaced with'
+     ' alternating inward and outward curves to create a tile that only admits'
+     ' monochiral tilings.')
+        output_file_name = 'curved_spectre_tiling.txt'
+    else:
+        output_file_name = 'fiat_spectre_tiling.txt'
+
+    all_tiles.set_crop_values(
               left_x=all_tiles.get_pt(tile_id='76',
                                       edge=TILE11_EDGE_RENAMER['RD'])[0],
               bottom_y=all_tiles.get_pt(tile_id='127',
@@ -114,5 +129,4 @@ all_tiles.set_crop_values(
                                       edge=TILE11_EDGE_RENAMER['RS'])[1],
                          )
 
-all_tiles.write_points_to_file('tilings/spectre/fiat_spectre_tiling.txt')
-                               
+    all_tiles.write_points_to_file('tilings/spectre/' + output_file_name)

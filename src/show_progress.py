@@ -35,6 +35,7 @@ from enum import Enum
 import csv
 import sys
 import gi
+import math
 import os
 import random
 gi.require_version('Gtk', '4.0')
@@ -47,7 +48,7 @@ from gi.repository import Gtk, Adw, Gdk, GLib
 # Do the tiles on the area border first?
 BORDER_FIRST = True
 # TODO: make command line argument?
-TILE_FILE_NAME = 'hat_tiling.txt'
+TILE_FILE_NAME = 'tilings/hat/hat_tiling.txt'
 
 #-----------------------------------------------------------------------------
 # Global
@@ -66,6 +67,23 @@ def hex2(val):
         raise ValueError(f'Invalid input {val=}')
     ret_val = f'{int_val:02X}'
     return ret_val
+
+def get_angle(start, end):
+    y_diff = end[1] - start[1]
+    x_diff = end[0] - start[0]
+    if y_diff*y_diff + x_diff*x_diff < .00000001:
+        raise ValueError('Cannot get angle since side length 0!')
+    if abs(x_diff) < .000001:
+        if y_diff > 0:
+            return math.pi/2
+        else:
+            return -math.pi/2
+    elif x_diff > 0:
+        return math.atan(y_diff / x_diff)
+    else:
+        return math.atan(y_diff / x_diff) + math.pi
+
+#-----------------------------------------------------------------------------
 
 def convert_rgba_to_hex(r, g, b, a=None):
     if a is None:
@@ -206,12 +224,51 @@ class Tile():
         self.start_fill_color = None
         self.done_fill_color = None
 
+    def curve_to(self, cr, prev, curr, vertex_num):
+        '''Draw line or Bezier cubic curve between points
+
+        A line if drawn if `not self.dw.curve_spectre_edges'. Otherwise, a
+        cubic Bezier curve is drawn with both control points a distance
+        .2*d from the segment connecting `prev` and `curr`, where `d` is
+        the segment length. The vertex number is used to alternate the
+        curve directions, i.e., the control point alternates being inside
+        and outside the tile for each edge.
+        '''
+
+        if not self.dw.curve_spectre_edges:
+            cr.line_to(curr[0], curr[1])
+            return
+
+        v_const = -1 + 2 * (vertex_num % 2)
+        d = math.sqrt((curr[1] - prev[1])**2 + (curr[0] - prev[0])**2)
+        h = d*0.2
+        # taking these points and just drawing lines also makes the tile
+        # only admit monochiral tilings
+        # pts = [(d/4, h), (d/2, 0), (3*d/4, -h), (d, 0)]
+
+        # the control point(s) and the point to move to in a coordinate
+        # system where the start/stop points are (0,0) and (d,0)
+        pts = [(d/2, h*v_const), (d, 0)]
+        # Convert the coordinates to start=prev and stop=curr
+        angle = get_angle(start=prev, end=curr)
+        new_pts = [ (prev[0] + math.cos(angle)*pt[0] - math.sin(angle)*pt[1],
+                     prev[1] + math.sin(angle)*pt[0] + math.cos(angle)*pt[1])
+                    for pt in pts ]
+        for idx in range(0, len(new_pts), 2):
+            cr.curve_to(new_pts[idx][0], new_pts[idx][1],
+                        new_pts[idx][0], new_pts[idx][1],
+                        new_pts[idx+1][0], new_pts[idx+1][1])
+
     def draw(self, cr):
         cr.set_line_width(1)
         cr.new_path()
         cr.move_to(self.device_points[0][0], self.device_points[0][1])
-        for pt in self.device_points[1:]:
-            cr.line_to(pt[0], pt[1])
+        prev_pt = self.device_points[0]
+        for idx, pt in enumerate(self.device_points[1:]):
+            self.curve_to(cr, prev_pt, pt, vertex_num=idx)
+            prev_pt = pt
+            #cr.line_to(pt[0], pt[1])
+        self.curve_to(cr, prev_pt, self.device_points[0], vertex_num=len(self.device_points)-1)
         cr.close_path()
 
         if _TEST_WITH_SOLID_COLORS:
@@ -540,6 +597,7 @@ class MainWindow(Gtk.ApplicationWindow):
         self.dw.img_width = None
         self.dw.img_height = None
         footnote_text = None
+        str_to_bool = {'True': True, 'False': False, 'None': None, '': None}
         with open(file_name, 'r', encoding='utf-8') as f:
             reader = csv.DictReader(f, delimiter='\t')
             read_rows = 0
@@ -547,9 +605,12 @@ class MainWindow(Gtk.ApplicationWindow):
                 pts = get_pts_from_reader_row(row)
                 if read_rows == 0 and 'footnote' in row:
                     footnote_text = row['footnote']
+                if read_rows == 0 and 'curve_spectre_edges' in row:
+                    self.dw.curve_spectre_edges = str_to_bool[row['curve_spectre_edges']]
+                elif read_rows == 0:
+                    self.dw.curve_spectre_edges = False
                 if read_rows == 0:
                     self.dw.img_height = float(row['img_height'])
-                if read_rows == 0:
                     self.dw.img_width = float(row['img_width'])
                 new_tile = Tile(user_points=pts, dw=self.dw)
                 new_tile.set_color_from_reader_row(row, 'start_fill_color')
