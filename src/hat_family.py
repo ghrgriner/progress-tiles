@@ -146,6 +146,8 @@ class HatFamilyTile():
     ----------
     tile_id : int
         Unique integer for each tile
+    all_tiles : AllTiles object
+        The collection of tiles this tile is in
     chirality : str, 'L' or 'R'
         which side of the shirt is 'untucked' (for hat tiles)
     start_edge : str
@@ -175,9 +177,15 @@ class HatFamilyTile():
     done_stroke_color : str
         Stroke color for the tile in the 'done' state, as rgb/rgba hex
         string.
+    tile_param1 : float
+        One of the side lengths that can be set independently. This is
+        the shorter side for the 'hat' tile.
+    tile_param2 : float, optional
+        The other side length. This is the longer side for the 'hat' tile.
     '''
     def __init__(self, all_tiles, tile_id, start_edge, color, match_edge=None,
-                 match_id=None, footnote='', tile_param1=None, tile_param2=None):
+                 match_id=None, footnote='',
+                 tile_param1=None, tile_param2=None):
         self.chirality = all_tiles.chiralities[color]
         self.tile_id = tile_id
         self.color = color
@@ -188,8 +196,7 @@ class HatFamilyTile():
         self.footnote = footnote
         tp1 = tile_param1 if tile_param1 else all_tiles.tile_param1
         tp2 = tile_param2 if tile_param2 else all_tiles.tile_param2
-        self.dists = {'HS': tp1 * all_tiles.scaling,
-                      'HH': tp2 * all_tiles.scaling}
+        self.dists = {'HS': tp1, 'HH': tp2}
         self.set_user_points(all_tiles)
         self.set_colors(all_tiles.colors)
 
@@ -274,8 +281,7 @@ class HatFamilyTile():
 
     def set_user_points(self, all_tiles):
         if not self.match_edge:
-            curr_pt = (_FIRST_TILE_W * all_tiles.scaling,
-                       _FIRST_TILE_H * all_tiles.scaling)
+            curr_pt = (_FIRST_TILE_W, _FIRST_TILE_H)
             curr_angle = all_tiles.first_tile_angle
         else:
             curr_pt, curr_angle = self.get_start_point_and_angle(all_tiles)
@@ -287,10 +293,7 @@ class HatFamilyTile():
         move_list.extend(MOVES[self.chirality][:start_pos])
 
         for move in move_list:
-            if move.turn == 'L':
-                angle_const = -1
-            else:
-                angle_const = 1
+            angle_const = -1 if move.turn == 'L' else 1
             curr_pt = (
                 round(curr_pt[0]
                       + self.dists[move.d] * math.cos(curr_angle),6),
@@ -309,7 +312,6 @@ class HatFamilyTile():
     def set_colors(self, colors):
         self.start_fill_color = colors[self.color]
         self.start_stroke_color = convert_rgba_to_hex(0, 0, 0)
-        #self.done_fill_color = convert_rgba_to_hex(
         self.done_fill_color = convert_rgba_to_hex(0, 0, 0, 0)
         self.done_stroke_color = convert_rgba_to_hex(0, 0, 0, 0)
 
@@ -328,20 +330,15 @@ class AllTiles:
     chiralities : dict[str, Union['L','R']]
         Dictionary that takes the strings representing the color from the
         input file (which is typically a short abbreviation like 'w' for
-        'white') and returns the chirality. This is possible since all the
-        examples we provide color the opposite chirality with a different
-        color.
+        'white') and returns the chirality. This is possible since for all
+        examples  we provide each color is associated with only one
+        chirality.
     colors : dict[str, str]
         Dictionary that takes the strings representing the color from the
         input file (which is typically a short abbreviation like 'w' for
         'white') and returns a rgb or rgba hex string (e.g., '#ff0000').
     first_tile_angle : float, optional (default=0)
         The angle the first edge in the first tile is drawn at.
-    scaling : float, optional (default=1)
-        Optional scaling. If provided, all distances are multiplied by
-        this factor. This is provided for now for backwards compatability.
-        It is less important since the window in `show_progress.py` will
-        also resize the image.
     left_x : float, optional (default = None)
         Left x-coordinate to use when cropping. If None, then the minimum
         of all x-coordinates of all points is used.
@@ -356,17 +353,23 @@ class AllTiles:
         of all y-coordinates of all points is used.
     footnote : str
         Footnote to pass through to the output.
+    pass_through : Dict[str, str]
+        A dictionary that will be passed through when writing the output 
+        file. The key will be the header and the value will be placed
+        on the first non-header row of the output file.
     '''
     def __init__(self, tile_param1, tile_param2, chiralities, colors,
-                 pass_through={}, first_tile_angle=0, scaling=1):
+                 pass_through=None, first_tile_angle=0):
         self.tiles = {}
         self.tile_param1 = tile_param1
         self.tile_param2 = tile_param2
         self.chiralities = chiralities
         self.colors = colors
         self.first_tile_angle = first_tile_angle
-        self.scaling = scaling
-        self.pass_through = pass_through
+        if pass_through is None:
+            self.pass_through = {}
+        else:
+            self.pass_through = pass_through
         self.left_x = None
         self.right_x = None
         self.top_y = None
